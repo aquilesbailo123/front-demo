@@ -1,15 +1,14 @@
 /* Contenedor principal */
 .result-main-cont {
       display: flex;
-      flex: 1;
       flex-direction: column;
       align-items: center;
       padding: 2rem;
       width: 100%;
-}
-
-/* Contenedor del form */
-.result-cont {
+    }
+    
+    /* Contenedor de la cotización */
+    .result-cont {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,21 +20,170 @@
       min-height: 500px;
       border: 1px solid black;
       border-radius: 10px;
-      
-}
-
-/* Textos */
-.result-title {
+    }
+    
+    /* Títulos */
+    .result-title {
       font-size: 1.3rem;
       font-weight: bold;
-      width: auto;
       margin: 0;
-}
-
-.result-text {
+    }
+    
+    .result-text {
       font-size: 1rem;
-      width: auto;
       margin: 0;
-}
-
-/* Producto */
+      color: #555;
+    }
+    
+    /* Header row (like table header) */
+    .result-table-header {
+      display: flex;
+      width: 100%;
+      background-color: #f1f1f1;
+      padding: 0.8rem 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 1rem;
+    }
+    
+    /* Each "column" in the header */
+    .result-table-col.header-col {
+      flex: 1;
+      font-weight: bold;
+      font-size: 0.95rem;
+      padding: 0 0.5rem;
+      text-align: left;
+    }
+    
+    /* Each row (stripe) with border & radius */
+    .result-table-row {
+      display: flex;
+      width: 100%;
+      padding: 0.8rem 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      transition: background-color 0.2s ease;
+    }
+    
+    .result-table-row:hover {
+      background-color: #fafafa;
+    }
+    
+    /* Each "column" in the row */
+    .result-table-col {
+      flex: 1;
+      font-size: 0.9rem;
+      padding: 0 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Product column has an image + name */
+    .product-col {
+      gap: 8px;
+    }
+    
+    /* The product image inside a row */
+    .product-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    
+    /* Not found row styling (optional) */
+    .not-found-row {
+      opacity: 0.8;
+      font-style: italic;
+    }
+    
+    /* The clickable "button" for equivalents (using only div) */
+    .equivalent-button {
+      background-color: #2196f3;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      text-align: center;
+      margin-left: auto; /* pushes button to the right if desired */
+    }
+    
+    .equivalent-button:hover {
+      background-color: #1976d2;
+    }
+    
+    /* "Acciones" column can be special if you want it aligned right */
+    .action-col {
+      justify-content: flex-end;
+    }
+    
+    /* -- Modal styling -- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.45);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    
+    .modal-content {
+      background-color: #fff;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 8px;
+      padding: 2rem;
+      position: relative;
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .modal-title {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      font-weight: bold;
+      text-align: left;
+    }
+    
+    .equivalent-product {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1rem;
+    }
+    
+    .equivalent-image {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    
+    .equivalent-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    

@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuotation } from '../../hooks/useQuotation';
+// import { useQuotation } from '../../hooks/useQuotation';
 import tail_blue from '../../assets/tail_blue.svg'
 import './Cotizator.css';
 
@@ -12,11 +12,13 @@ const Cotizator = () => {
       const [error, setError] = useState('');
       const imageRef = useRef<HTMLInputElement>(null);
 
-      const { mutateAsync: quotation } = useQuotation();
+      // const { mutateAsync: quotation } = useQuotation();
 
       const toggleOption = () => {
             setInputType((prev) => (prev === "image" ? "text" : "image"));
       };
+
+      const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
       const handleSubmitQuotation = async (e: any) => {
             e.preventDefault();
@@ -30,10 +32,13 @@ const Cotizator = () => {
                   formData.append("quotation", file);
 
                   try {
-                        const response = await quotation(formData);
+                        // TODO this should be the api call
+                        // const response = await quotation(formData);
+                        await sleep(2000);
                         setIsLoading(false); 
-        
-                        if (response.status === 200) {
+                        
+                        const condition = true //response.status === 200
+                        if (condition) {
                               // TODO this is hardcoded
                               const id = 1;
                               navigate(`/quotation/${id}`);
@@ -52,10 +57,13 @@ const Cotizator = () => {
                   formData.append("quotation", text);
                   
                   try {
-                        const response = await quotation(formData);
+                        // TODO this should be the api call
+                        // const response = await quotation(formData);
+                        await sleep(2000);
                         setIsLoading(false); 
-
-                        if (response.status === 200) {
+                        
+                        const condition = true //response.status === 200
+                        if (condition) {
                               // TODO this is hardcoded
                               const id = 1;
                               navigate(`/quotation/${id}`);
