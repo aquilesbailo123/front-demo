@@ -116,7 +116,7 @@ function Result() {
       return (
             <div className="result-main-cont">
                   <div className="result-cont">
-                        <div className="result-title">Cotización</div>
+                        <div className="result-title">Cotización {id}</div>
                         <div className="result-text">A continuación encontrará los items de su cotización</div>
 
                         {result.items?.map((result: any) => <div>{result.type}</div>)}
