@@ -1,0 +1,11 @@
+.navbar-main-cont {
+      width: 100%;
+      flex-direction: row;
+      padding: 1.5rem;
+      background-color: lightblue;
+}
+
+.nav-link {
+      text-decoration: none;
+      color: black;
+}
