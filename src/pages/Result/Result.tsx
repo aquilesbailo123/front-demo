@@ -1,320 +1,337 @@
-import { useParams } from "react-router-dom";
-import React, { useState } from "react";
-import "./Result.css";
+import React, { useState, useEffect } from 'react';
+import { ALL_PRODUCTS, Product } from '../../assets/products.tsx';
+import './Result.css';
 
-interface Product {
-  name: string;
-  description: string;
-  part_number: string;
-  price: string;
-  stock: number;
-  image: string;
-  equivalent_products?: Product[];
-}
 
-interface ProductItem {
-  type: "product";
+
+interface ProductRow {
+  // Represents the row in our Excel-like table
   product: Product;
-  quantity: number;
 }
 
-interface NotFoundItem {
-  type: "not_found";
-  name: string;
-  quantity: number;
-}
 
-type Item = ProductItem | NotFoundItem;
+/** MAIN COMPONENT **/
+const NewProductList: React.FC = () => {
+  // The "Excel-like" list
+  const [rows, setRows] = useState<ProductRow[]>([]);
+  
+  // The search term typed by the user
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  
+  // The recommended products to show on the right of the search bar
+  const [recommendations, setRecommendations] = useState<Product[]>([]);
+  
+  // Track which row is being edited in the modal
+  const [editingRowIndex, setEditingRowIndex] = useState<number | null>(null);
+  
+  // For the modal: we keep track of a separate "searchTerm" to replace an item
+  const [modalSearchTerm, setModalSearchTerm] = useState<string>('');
+  const [modalRecommendations, setModalRecommendations] = useState<Product[]>([]);
 
-interface ResultData {
-  items: Item[];
-}
+  /** 
+   * Helper function to get a product (by ID) plus any equivalent products 
+   * for the search scope. You can define your "likelihood" sorting logic here.
+   **/
+  function searchInProducts(term: string, products: Product[]): Product[] {
+    const lowerTerm = term.toLowerCase();
+    
+    // We'll do a basic search in name, part_number, or description
+    // Also, we consider any product whose *equivalent_products* might match the term
+    // For advanced "likelihood", sort by your own scoring system
+    const matched = products.filter((p) => {
+      // Basic matches
+      const directMatch = 
+        p.name.toLowerCase().includes(lowerTerm) ||
+        p.part_number.toLowerCase().includes(lowerTerm) ||
+        p.description.toLowerCase().includes(lowerTerm);
 
-const Result: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-
-  // Modal state
-  const [showModal, setShowModal] = useState(false);
-  const [equivalents, setEquivalents] = useState<Product[]>([]);
-
-  const handleShowModal = (equivalentProducts: Product[]) => {
-    setEquivalents(equivalentProducts);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setEquivalents([]);
-  };
-
-  // Simulated response
-  const result: ResultData = {
-    items: [
-      {
-        type: "product",
-        product: {
-          name: "Pastilla de Freno",
-          description: "Pastilla de alto rendimiento para autobuses.",
-          part_number: "BP12345",
-          price: "49.99",
-          stock: 10,
-          image: "https://storage.googleapis.com/feriabucket/1735268074155_products.jpg"
-        },
-        quantity: 2
-      },
-      {
-        type: "product",
-        product: {
-          name: "Filtro de Aire",
-          description: "Filtro de aire eficiente para motores de autobuses.",
-          part_number: "AF67890",
-          price: "19.99",
-          stock: 0, // Sin stock
-          image: "https://storage.googleapis.com/feriabucket/1735268085750_categories.jpg",
-          equivalent_products: [
-            {
-              name: "Filtro de Aire Genérico",
-              description: "Opción más económica para motores de autobuses.",
-              part_number: "AF11111",
-              price: "15.99",
-              stock: 8,
-              image: "https://storage.googleapis.com/feriabucket/1735268074155_products.jpg"
-            },
-            {
-              name: "Filtro de Aire Premium",
-              description: "Filtro de alto rendimiento con mayor durabilidad.",
-              part_number: "AF22222",
-              price: "29.99",
-              stock: 5,
-              image: "https://storage.googleapis.com/feriabucket/1735268085750_categories.jpg"
-            }
-          ]
-        },
-        quantity: 1
-      },
-      {
-        type: "product",
-        product: {
-          name: "Correa de Distribución",
-          description: "Correa de distribución duradera para motores de autobuses.",
-          part_number: "TB23456",
-          price: "89.99",
-          stock: 5,
-          image: "https://storage.googleapis.com/feriabucket/1735268074155_products.jpg"
-        },
-        quantity: 1
-      },
-      {
-        type: "not_found",
-        name: "Filtro de Aceite",
-        quantity: 1
-      },
-      {
-        type: "product",
-        product: {
-          name: "Bujía",
-          description: "Bujía de larga duración para combustión eficiente.",
-          part_number: "SP56789",
-          price: "12.99",
-          stock: 50,
-          image: "https://storage.googleapis.com/feriabucket/1735268085750_categories.jpg"
-        },
-        quantity: 4
-      },
-      {
-        type: "not_found",
-        name: "Escobilla Limpiaparabrisas",
-        quantity: 2
-      },
-      {
-        type: "product",
-        product: {
-          name: "Terminal de Batería",
-          description: "Terminal de batería confiable para conexiones seguras.",
-          part_number: "BT89012",
-          price: "15.49",
-          stock: 10,
-          image: "https://storage.googleapis.com/feriabucket/1735268074155_products.jpg"
-        },
-        quantity: 1
-      },
-      {
-        type: "not_found",
-        name: "Gato Hidráulico",
-        quantity: 1
-      },
-      {
-        type: "product",
-        product: {
-          name: "Colector de Escape",
-          description: "Colector de escape de alto rendimiento para mejor flujo.",
-          part_number: "EM54321",
-          price: "249.99",
-          stock: 0, // Sin stock
-          image: "https://storage.googleapis.com/feriabucket/1735268074155_products.jpg",
-          equivalent_products: [
-            {
-              name: "Colector de Escape Standard",
-              description: "Colector de reemplazo con rendimiento estándar.",
-              part_number: "EM11111",
-              price: "199.99",
-              stock: 10,
-              image: "https://storage.googleapis.com/feriabucket/1735268074155_products.jpg"
-            }
-          ]
-        },
-        quantity: 1
-      },
-      {
-        type: "product",
-        product: {
-          name: "Culata",
-          description: "Culata de precisión diseñada para mayor durabilidad.",
-          part_number: "CH67890",
-          price: "499.99",
-          stock: 3,
-          image: "https://storage.googleapis.com/feriabucket/1735268085750_categories.jpg"
-        },
-        quantity: 1
-      },
-      {
-        type: "product",
-        product: {
-          name: "Correa del Ventilador",
-          description: "Correa del ventilador duradera para enfriamiento constante.",
-          part_number: "FB12321",
-          price: "19.99",
-          stock: 0, // Sin stock
-          image: "https://storage.googleapis.com/feriabucket/1735268074155_products.jpg",
-          equivalent_products: [
-            {
-              name: "Correa del Ventilador Premium",
-              description: "Mayor resistencia y durabilidad.",
-              part_number: "FB33333",
-              price: "29.99",
-              stock: 6,
-              image: "https://storage.googleapis.com/feriabucket/1735268085750_categories.jpg"
-            }
-          ]
-        },
-        quantity: 2
+      if (directMatch) return true;
+      
+      // Check equivalents
+      if (p.equivalent_products && p.equivalent_products.length > 0) {
+        const eqMatches = p.equivalent_products.some(eqID => {
+          const eqProduct = products.find(pr => pr.id === eqID);
+          if (!eqProduct) return false;
+          return (
+            eqProduct.name.toLowerCase().includes(lowerTerm) ||
+            eqProduct.part_number.toLowerCase().includes(lowerTerm) ||
+            eqProduct.description.toLowerCase().includes(lowerTerm)
+          );
+        });
+        return eqMatches;
       }
-    ]
-  };
+      return false;
+    });
+
+    // Sort matched (very naive approach: the shorter the distance, the higher it goes)
+    // A more advanced approach might measure Levenshtein distance, or rank by part_number closeness, etc.
+    return matched.sort((a, b) => {
+      // Example "ranking" by how early the search term appears in the name
+      const idxA = a.name.toLowerCase().indexOf(lowerTerm);
+      const idxB = b.name.toLowerCase().indexOf(lowerTerm);
+      return idxA - idxB;
+    });
+  }
+
+  /** EFFECT: Update recommendations whenever searchTerm changes **/
+  useEffect(() => {
+    if (searchTerm.trim() === '') {
+      setRecommendations([]);
+      return;
+    }
+    const found = searchInProducts(searchTerm, ALL_PRODUCTS);
+    setRecommendations(found);
+  }, [searchTerm]);
+
+  /** EFFECT: For the modal's search (when replacing product) **/
+  useEffect(() => {
+    if (modalSearchTerm.trim() === '') {
+      setModalRecommendations([]);
+      return;
+    }
+    const found = searchInProducts(modalSearchTerm, ALL_PRODUCTS);
+    setModalRecommendations(found);
+  }, [modalSearchTerm]);
+
+  /** 
+   * Handle user pressing ENTER in the bottom search input:
+   * - If there's at least 1 recommendation, add the first one
+   * - Clear the searchTerm
+   */
+  function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (recommendations.length > 0) {
+        handleSelectProduct(recommendations[0]);
+      }
+    }
+  }
+
+  /**
+   * Add selected product as a new row in the "Excel-like" table.
+   */
+  function handleSelectProduct(product: Product) {
+    setRows(prev => [...prev, { product }]);
+    setSearchTerm('');
+    setRecommendations([]);
+  }
+
+  /** 
+   * Editing a row => open modal 
+   */
+  function handleEditRow(index: number) {
+    setEditingRowIndex(index);
+    setModalSearchTerm('');        // reset modal search
+    setModalRecommendations([]);   // reset modal recommendations
+  }
+
+  /**
+   * If the user selects an equivalent product from the row itself
+   * (for example, you might pass the eqProduct ID)
+   */
+  function handleReplaceWithEquivalent(eqID: number) {
+    if (editingRowIndex === null) return;
+    setRows(prev => {
+      const newRows = [...prev];
+      const product = ALL_PRODUCTS.find((p: Product) => p.id === eqID);
+      if (product) {
+        newRows[editingRowIndex] = { product };
+      }
+      return newRows;
+    });
+  }
+
+  /**
+   * If the user chooses a brand new product from the modal's search to replace current
+   */
+  function handleReplaceModal(product: Product) {
+    if (editingRowIndex === null) return;
+    setRows(prev => {
+      const newRows = [...prev];
+      newRows[editingRowIndex] = { product };
+      return newRows;
+    });
+    setModalSearchTerm('');
+    setModalRecommendations([]);
+  }
+
+  /** 
+   * Remove a product from the table 
+   */
+  function handleRemoveRow(index: number) {
+    setRows(prev => prev.filter((_, i) => i !== index));
+  }
 
   return (
-    <div className="result-main-cont">
-      <div className="result-cont">
-        <div className="result-title">Cotización #{id}</div>
-        <div className="result-text">
-          A continuación encontrará los items de su cotización:
-        </div>
+    <div className="np-container">
+      <h1 className="np-title">Cotizar productos</h1>
 
-        {/* "Table-like" header row */}
-        <div className="result-table-header">
-          <div className="result-table-col header-col">Producto</div>
-          <div className="result-table-col header-col">Descripción</div>
-          <div className="result-table-col header-col">Número de Parte</div>
-          <div className="result-table-col header-col">Precio</div>
-          <div className="result-table-col header-col">Stock</div>
-          <div className="result-table-col header-col">Cantidad</div>
-          <div className="result-table-col header-col">Acciones</div>
-        </div>
+      {/* Excel-like table header */}
+      <div className="np-table-header">
+        <div className="np-col col-image">Imagen</div>
+        <div className="np-col col-name">Nombre</div>
+        <div className="np-col col-part">Número de parte</div>
+        <div className="np-col col-price">Precio</div>
+        <div className="np-col col-stock">Stock</div>
+        <div className="np-col col-parents">Pertenece a</div>
+        <div className="np-col col-actions">Acciones</div>
+      </div>
 
-        {/* Stripe rows */}
-        {result.items.map((item, index) => {
-          if (item.type === "product") {
-            const p = item.product;
-            const outOfStock = p.stock === 0;
-            const hasEquivs = p.equivalent_products && p.equivalent_products.length > 0;
+      {/* Excel-like rows */}
+      {rows.map((row, index) => {
+        const p = row.product;
+        // Grab any parent product names
+        const parentNames = p.parent_products?.map((pid: any) => {
+          const parentProd = ALL_PRODUCTS.find((prod: Product) => prod.id === pid);
+          return parentProd ? parentProd.name : `#${pid}`;
+        }) ?? [];
 
-            return (
-              <div key={index} className="result-table-row">
-                {/* Producto (with image) */}
-                <div className="result-table-col product-col">
-                  <img src={p.image} className="product-image" alt="" />
-                  <div>{p.name}</div>
-                </div>
-                {/* Descripción */}
-                <div className="result-table-col">{p.description}</div>
-                {/* Número de Parte */}
-                <div className="result-table-col">{p.part_number}</div>
-                {/* Precio */}
-                <div className="result-table-col">${p.price}</div>
-                {/* Stock */}
-                <div className="result-table-col">
-                  {outOfStock ? "Sin stock" : p.stock}
-                </div>
-                {/* Cantidad */}
-                <div className="result-table-col">{item.quantity}</div>
-                {/* Acciones (Ver productos equivalentes) */}
-                <div className="result-table-col action-col">
-                  {outOfStock && hasEquivs && (
-                    <div
-                      className="equivalent-button"
-                      onClick={() => handleShowModal(p.equivalent_products!)}
-                    >
-                      Ver productos equivalentes
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          } else {
-            // Not found item: keep the name, "----" for others
-            return (
-              <div key={index} className="result-table-row not-found-row">
-                <div className="result-table-col product-col">
-                  <div>{item.name}</div>
-                </div>
-                <div className="result-table-col">----</div>
-                <div className="result-table-col">----</div>
-                <div className="result-table-col">----</div>
-                <div className="result-table-col">----</div>
-                <div className="result-table-col">{item.quantity}</div>
-                <div className="result-table-col"></div>
-              </div>
-            );
-          }
-        })}
-
-        {/* Modal */}
-        {showModal && (
-          <div className="modal-overlay" onClick={handleCloseModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="close-modal" onClick={handleCloseModal}>
-                X
-              </div>
-              <div className="modal-title">Productos Equivalentes</div>
-              {equivalents.map((prod, i) => (
-                <div key={i} className="equivalent-product">
-                  <img src={prod.image} className="equivalent-image" alt="" />
-                  <div className="equivalent-info">
-                    <div>
-                      <strong>Producto:</strong> {prod.name}
-                    </div>
-                    <div>
-                      <strong>Descripción:</strong> {prod.description}
-                    </div>
-                    <div>
-                      <strong>Número de Parte:</strong> {prod.part_number}
-                    </div>
-                    <div>
-                      <strong>Precio:</strong> ${prod.price}
-                    </div>
-                    <div>
-                      <strong>Stock:</strong>{" "}
-                      {prod.stock === 0 ? "Sin stock" : prod.stock}
-                    </div>
-                  </div>
-                </div>
-              ))}
+        return (
+          <div key={index} className="np-table-row">
+            {/* Image */}
+            <div className="np-col col-image">
+              <img src={p.image} alt={p.name} className="row-img" />
             </div>
+            {/* Name */}
+            <div className="np-col col-name">{p.name}</div>
+            {/* Part Number */}
+            <div className="np-col col-part">{p.part_number}</div>
+            {/* Price */}
+            <div className="np-col col-price">${p.price}</div>
+            {/* Stock */}
+            <div className="np-col col-stock">
+              {p.stock === 0 ? "Out of Stock" : p.stock}
+            </div>
+            {/* Parent Products */}
+            <div className="np-col col-parents">
+              {parentNames.length > 0 ? parentNames.join(", ") : "—"}
+            </div>
+            {/* Actions */}
+            <div className="np-col col-actions">
+              <button 
+                className="edit-btn" 
+                onClick={() => handleEditRow(index)}
+              >
+                Editar
+              </button>
+              <button 
+                className="remove-btn" 
+                onClick={() => handleRemoveRow(index)}
+              >
+                Eliminar
+              </button>
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Bottom bar: search input on the left, recommendations on the right */}
+      <div className="np-bottom-search">
+        {/* Search input */}
+        <input
+          className="np-search-input"
+          placeholder="Escriba el nombre del producto..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyDown}
+        />
+
+        {/* Recommended products to the right */}
+        {recommendations.length > 0 && (
+          <div className="np-recommendations-box">
+            {recommendations.map((rec) => (
+              <div 
+                key={rec.id} 
+                className="np-recommendation-item"
+                onClick={() => handleSelectProduct(rec)}
+              >
+                <img src={rec.image} alt={rec.name} />
+                <div>
+                  <strong>{rec.name}</strong> <br/>
+                  <small>{rec.part_number}</small>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
+
+      {/* EDIT MODAL */}
+      {editingRowIndex !== null && (
+        <div className="np-modal-overlay" onClick={() => setEditingRowIndex(null)}>
+          <div 
+            className="np-modal-content" 
+            onClick={(e) => e.stopPropagation()}  // prevent closing when clicking inside
+          >
+            <div className="np-modal-header">
+              <h2>Editar item</h2>
+              <button 
+                className="np-modal-close" 
+                onClick={() => setEditingRowIndex(null)}
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* The current product’s equivalents */}
+            <div className="np-modal-section">
+              <h3>Productos equivalentes</h3>
+              {(() => {
+                const currentProduct = rows[editingRowIndex].product;
+                if (currentProduct.equivalent_products?.length) {
+                  return currentProduct.equivalent_products.map((eqID: any) => {
+                    const eqProd = ALL_PRODUCTS.find((p: Product) => p.id === eqID);
+                    if (!eqProd) return null;
+                    return (
+                      <div 
+                        key={eqProd.id} 
+                        className="np-modal-equiv-item"
+                        onClick={() => handleReplaceWithEquivalent(eqProd.id)}
+                      >
+                        <img src={eqProd.image} alt={eqProd.name} />
+                        <div>
+                          <strong>{eqProd.name}</strong><br/>
+                          <small>Parte: {eqProd.part_number}</small>
+                        </div>
+                      </div>
+                    );
+                  });
+                }
+                return <div>No se encontraron productos equivalentes.</div>;
+              })()}
+            </div>
+
+            {/* Or search for an entirely different product */}
+            <div className="np-modal-section">
+              <h3>Buscar otro producto</h3>
+              <input
+                className="np-modal-search"
+                placeholder="Escriba el nombre del producto..."
+                value={modalSearchTerm}
+                onChange={(e) => setModalSearchTerm(e.target.value)}
+              />
+              <div className="np-modal-recommendations">
+                {modalRecommendations.map((mp) => (
+                  <div 
+                    key={mp.id} 
+                    className="np-modal-recommendation-item"
+                    onClick={() => handleReplaceModal(mp)}
+                  >
+                    <img src={mp.image} alt={mp.name} />
+                    <div>
+                      <strong>{mp.name}</strong><br/>
+                      <small>Parte: {mp.part_number}</small>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Result;
+export default NewProductList;

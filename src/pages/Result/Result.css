@@ -1,189 +1,271 @@
-/* Contenedor principal */
-.result-main-cont {
+/**** Container ****/
+.np-container {
+      width: 90%;
+      max-width: 2000px;
+      margin: 2rem auto;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding: 2rem;
-      width: 100%;
+      gap: 1rem;
+      background: linear-gradient(135deg, #e3f2fd, #ffffff);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
     
-    /* Contenedor de la cotización */
-    .result-cont {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .np-title {
+      font-size: 1.6rem;
+      margin: 0;
       text-align: center;
-      gap: 0.8rem;
-      padding: 2rem;
-      width: auto;
-      max-width: 1000px;
-      min-height: 500px;
-      border: 1px solid black;
-      border-radius: 10px;
+      color: #333;
     }
     
-    /* Títulos */
-    .result-title {
-      font-size: 1.3rem;
-      font-weight: bold;
-      margin: 0;
-    }
-    
-    .result-text {
-      font-size: 1rem;
-      margin: 0;
-      color: #555;
-    }
-    
-    /* Header row (like table header) */
-    .result-table-header {
+    /**** Excel-like Table Header ****/
+    .np-table-header {
       display: flex;
-      width: 100%;
-      background-color: #f1f1f1;
-      padding: 0.8rem 0;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      margin-top: 1rem;
+      border-bottom: 2px solid #333;
+      background: #f5f5f5;
+      font-weight: bold;
+      padding: 0.5rem 0;
+      border-radius: 4px;
     }
     
-    /* Each "column" in the header */
-    .result-table-col.header-col {
+    .np-col {
       flex: 1;
-      font-weight: bold;
-      font-size: 0.95rem;
       padding: 0 0.5rem;
       text-align: left;
+      font-size: 0.9rem;
     }
     
-    /* Each row (stripe) with border & radius */
-    .result-table-row {
+    /**** Table Rows ****/
+    .np-table-row {
       display: flex;
-      width: 100%;
-      padding: 0.8rem 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+      background: #fff;
       margin-top: 0.5rem;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
       transition: background-color 0.2s ease;
+      align-items: center;
     }
     
-    .result-table-row:hover {
+    .np-table-row:hover {
       background-color: #fafafa;
     }
     
-    /* Each "column" in the row */
-    .result-table-col {
-      flex: 1;
-      font-size: 0.9rem;
-      padding: 0 0.5rem;
-      display: flex;
-      align-items: center;
-    }
-    
-    /* Product column has an image + name */
-    .product-col {
-      gap: 8px;
-    }
-    
-    /* The product image inside a row */
-    .product-image {
-      width: 50px;
-      height: 50px;
+    .row-img {
+      width: 60px;
+      height: 60px;
       object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid #ddd;
+      border-radius: 4px;
+      border: 1px solid #ccc;
     }
     
-    /* Not found row styling (optional) */
-    .not-found-row {
-      opacity: 0.8;
-      font-style: italic;
+    /**** Columns ****/
+    .col-image {
+      max-width: 80px;
+    }
+    .col-name {
+      flex: 2; 
+    }
+    .col-part {
+      flex: 1.5; 
+    }
+    .col-price, .col-stock {
+      flex: 1; 
+    }
+    .col-parents {
+      flex: 2;
+    }
+    .col-actions {
+      flex: 1.2;
+      text-align: center;
     }
     
-    /* The clickable "button" for equivalents (using only div) */
-    .equivalent-button {
-      background-color: #2196f3;
-      color: #fff;
-      padding: 0.4rem 0.8rem;
+    /**** Action Buttons ****/
+    .edit-btn,
+    .remove-btn {
+      margin: 0 4px;
+      padding: 0.3rem 0.6rem;
+      border: none;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 0.8rem;
-      text-align: center;
-      margin-left: auto; /* pushes button to the right if desired */
     }
     
-    .equivalent-button:hover {
-      background-color: #1976d2;
+    .edit-btn {
+      background-color: #2196f3;
+      color: #fff;
+    }
+    .edit-btn:hover {
+      background-color: #0b7dda;
     }
     
-    /* "Acciones" column can be special if you want it aligned right */
-    .action-col {
-      justify-content: flex-end;
+    .remove-btn {
+      background-color: #f44336;
+      color: #fff;
+    }
+    .remove-btn:hover {
+      background-color: #d32f2f;
     }
     
-    /* -- Modal styling -- */
-    .modal-overlay {
+    /**** Bottom Search Bar ****/
+    .np-bottom-search {
+      display: flex;
+      position: relative;
+      margin-top: 1rem;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      padding: 0.5rem;
+      min-height: 60px;
+      align-items: flex-start; /* for a multiline textarea, if needed */
+    }
+    
+    .np-search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.5rem;
+      font-size: 1rem;
+      background: transparent;
+      resize: none;
+    }
+    
+    /**** Recommendations Box ****/
+    .np-recommendations-box {
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin: 0.5rem;
+      width: 300px;
+      max-height: 200px;
+      overflow-y: auto;
+      background: #fefefe;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.5rem;
+    }
+    
+    .np-recommendation-item {
+      display: flex;
+      gap: 0.5rem;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.3rem;
+    }
+    .np-recommendation-item:hover {
+      background: #f9f9f9;
+    }
+    .np-recommendation-item img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    
+    /**** Modal Overlay ****/
+    .np-modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.45);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: rgba(0,0,0,0.6);
       z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
-    .modal-content {
-      background-color: #fff;
+    /**** Modal Content ****/
+    .np-modal-content {
+      background: #fff;
       width: 90%;
       max-width: 600px;
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
       max-height: 80vh;
       overflow-y: auto;
-      border-radius: 8px;
-      padding: 2rem;
-      position: relative;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
     }
     
-    .close-modal {
-      position: absolute;
-      top: 10px;
-      right: 16px;
-      font-size: 1.2rem;
-      font-weight: bold;
+    /**** Modal Header ****/
+    .np-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .np-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
       cursor: pointer;
     }
     
-    .modal-title {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      font-weight: bold;
-      text-align: left;
-    }
-    
-    .equivalent-product {
-      display: flex;
-      flex-direction: row;
-      gap: 12px;
-      align-items: center;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 1rem;
-    }
-    
-    .equivalent-image {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
+    /**** Modal Sections ****/
+    .np-modal-section {
+      background: #f8f8f8;
+      padding: 1rem;
       border-radius: 6px;
-      border: 1px solid #ddd;
+    }
+    .np-modal-section h3 {
+      margin-top: 0;
+      font-size: 1rem;
     }
     
-    .equivalent-info {
+    /**** Equivalent Items inside Modal ****/
+    .np-modal-equiv-item,
+    .np-modal-recommendation-item {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
-      text-align: left;
-      font-size: 0.9rem;
+      gap: 1rem;
+      background: #fff;
+      border-radius: 4px;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    .np-modal-equiv-item:hover,
+    .np-modal-recommendation-item:hover {
+      background: #f5f5f5;
+    }
+    .np-modal-equiv-item img,
+    .np-modal-recommendation-item img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    
+    /**** Responsive ****/
+    @media (max-width: 768px) {
+      .np-table-header, .np-table-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .col-actions {
+        text-align: left;
+      }
+      .np-col {
+        margin: 4px 0;
+      }
+      .np-bottom-search {
+        flex-direction: column;
+      }
+      .np-recommendations-box {
+        position: static;
+        width: 100%;
+        max-height: 150px;
+        margin: 0.5rem 0 0 0;
+      }
     }
     
