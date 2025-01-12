@@ -2,8 +2,14 @@ import { useState, useEffect } from 'react';
 import { formatNumber } from '../../utils/functions'; // Assuming you have this utility
 import './Home.css';
 import { Product, ALL_PRODUCTS } from '../../assets/products';
+import { BRANDS } from '../../assets/brands';
+import { FiSend } from "react-icons/fi";
+import { FaFacebook, FaYoutube, FaWhatsapp, FaLinkedin } from 'react-icons/fa';
 
 function Home() {
+
+      const duplicatedBrands = [...BRANDS, ...BRANDS];
+
       const [discountedProducts, setDiscountedProducts] = useState<Product[]>([]);
       const [bestSellers, setBestSellers] = useState<Product[]>([]);
 
@@ -46,7 +52,7 @@ function Home() {
             {/* Explanation / Company Info */}
             <section className="agepsa-info fade-in">
                   <div className="agepsa-info-main archivo-black">¿Por qué AGEPSA?</div>
-                  <div className="agepsa-info-secondary">
+                  <div className="agepsa-info-text">
                         En AGEPSA somos líderes en la industria de repuestos para motores de
                         buses. Ofrecemos calidad, durabilidad y el mejor soporte para asegurar
                         que tu flota se mantenga en el camino. ¡Confía en nosotros para
@@ -63,8 +69,22 @@ function Home() {
                         target="_blank"
                         rel="noopener noreferrer"
                   >
-                        WhatsApp
+                        <FaWhatsapp size={20}/> WhatsApp
                   </a>
+            </div>
+
+            {/* Brands list */}
+            <div className="brands-section">
+                  <div className="brands-title archivo-black">Nuestras lineas</div>
+                  <div className="brands-carousel">
+                        {duplicatedBrands.map((brand) => (
+                              <img
+                                    src={brand.image}
+                                    alt={brand.name}
+                                    className="brand-image"
+                              />
+                        ))}
+                  </div>
             </div>
 
             {/* Discounted products section */}
@@ -108,14 +128,52 @@ function Home() {
                   </div>
             </section>
 
-            {/* Another promotional banner (optional) */}
-            <section className="promo-banner fade-in">
-                  <div className="promo-banner-title">AGEPSA</div>
-                  <div className="promo-banner-text">
-                        Confía en la mejor tecnología y calidad del mercado. ¡Tu motor te lo
-                        agradecerá!
+            {/* Contact form */}
+            <div className="contact-container">
+                  <div className="contact-image">
+                        <img
+                              className="home-logo"
+                              src="images/logo_big.png"
+                              alt="Home Logo"
+                        />
                   </div>
-            </section>
+                  <form className="contact-form">
+                        <div className="contact-title archivo-black">Contáctenos</div>
+                        <input type="text" name="name" className="contact-info" placeholder="Nombre" />
+                        <input type="text" name="name" className="contact-info" placeholder="Teléfono" />
+                        <input type="text" name="name" className="contact-info" placeholder="Correo electrónico" />
+                        <input type="text" name="name" className="contact-info" placeholder="Mensaje" />
+                        <div className="contact-button"><FiSend /> Enviar correo</div>
+                  </form>
+            </div>
+
+            {/* Footer */}
+            <div className="footer-container">
+                  <div className="footer-content">
+                        <div className="footer-info">
+                              <div className="footer-text">
+                                    <div>SEDE CENTRAL LOS OLIVOS</div>
+                                    <div>SEDE SAN LUIS / LIMA</div>
+                                    <div>SEDE PIURA</div>
+                                    <div>SEDE – TRUJILLO</div>
+                                    <div>SEDE CARABAYLLO / LIMA</div>
+                              </div>
+                              <div className="footer-contact">
+                                    <div>Central Olivos</div>
+                                    <div>(01) 522 6765</div>
+                                    <div>(01) 521 4585</div>
+                                    <div>999 773 727 - 999 300 308</div>
+                                    <div>central.ventas@agepsa.com.pe</div>
+                              </div>
+                              <div className="footer-icons">
+                                    <div className="footer-icon"><FaFacebook /></div>
+                                    <div className="footer-icon"><FaYoutube /></div>
+                                    <div className="footer-icon"><FaWhatsapp /></div>
+                                    <div className="footer-icon"><FaLinkedin /></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
       </div>
       );
 }
