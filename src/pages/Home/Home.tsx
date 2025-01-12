@@ -34,7 +34,7 @@ function Home() {
             <div className="home-banner">
                   <img
                         className="home-logo"
-                        src="src/assets/logo_big.png"
+                        src="images/logo_big.png"
                         alt="Home Logo"
                   />
                   <div className="home-title">
