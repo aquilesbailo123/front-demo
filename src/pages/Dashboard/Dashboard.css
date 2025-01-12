@@ -1,0 +1,399 @@
+/****************************
+      Estructura General
+****************************/
+.dashboard-main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      min-height: 100vh;
+      background: #f3f4f6;
+      font-family: 'Arial', sans-serif;
+      padding-bottom: 2rem; /* Espacio al final */
+}
+
+/****************************
+      Navbar Estilo Negro
+****************************/
+.dashboard-navbar {
+      width: 100%;
+      background-color: #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.dashboard-navbar-left {
+      display: flex;
+      align-items: center;
+}
+.dashboard-navbar-brand {
+      color: #fff;
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-right: 2rem;
+}
+
+.dashboard-navbar-links {
+      display: flex;
+      gap: 1.5rem;
+}
+.dashboard-navbar-link {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+}
+.dashboard-navbar-link:hover {
+      color: #ffda00;
+}
+
+/****************************
+      Título Principal
+****************************/
+.dashboard-title {
+      font-size: 1.8rem;
+      margin: 1.5rem 0;
+      color: #075985;
+      font-weight: bold;
+      text-align: center;
+}
+
+/****************************
+      Sección de Tarjetas (Indicadores)
+****************************/
+.dashboard-cards-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      width: 90%;
+      max-width: 1400px;
+      margin-bottom: 2rem;
+      justify-content: center;
+}
+
+.dashboard-card {
+      background: #fff;
+      flex: 1 1 200px;
+      min-width: 200px;
+      max-width: 350px;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      text-align: center;
+      transition: transform 0.2s;
+}
+.dashboard-card:hover {
+      transform: translateY(-3px);
+}
+.dashboard-card-title {
+      font-weight: 600;
+      color: #075985;
+      font-size: 1rem;
+}
+.dashboard-card-value {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #059669;
+}
+.dashboard-card-note {
+      font-size: 0.9rem;
+      color: #666;
+}
+
+/****************************
+      Sección de 4 Gráficas Interactivas
+****************************/
+.dashboard-charts-grid {
+      width: 90%;
+      max-width: 1400px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+}
+
+/* .dashboard-chart-box {
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      display: flex;
+      font-size: 0.8rem;
+      flex-direction: column;
+      align-items: center;
+}
+
+.dashboard-chart-title {
+      font-weight: 600;
+      color: #075985;
+      margin-bottom: 1rem;
+      text-align: center;
+}
+ */
+
+
+.dashboard-chart-box {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin: 20px 0;
+  }
+  
+  .dashboard-chart-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 15px;
+      color: #333;
+  }
+  
+  .dashboard-chart-box .recharts-pie-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      fill: #555;
+  }
+  
+/* Estilos específicos para los gráficos */
+.dashboard-chart-placeholder {
+      width: 100%;
+      max-width: 400px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+}
+
+.dashboard-chart-fake-graph {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-end;
+      height: 150px;
+      justify-content: space-around;
+      margin-bottom: 0.5rem;
+}
+.dashboard-chart-bar {
+      width: 15%;
+      background: #0ea5e9;
+      border-radius: 4px 4px 0 0;
+      transition: background-color 0.2s;
+}
+.dashboard-chart-bar:hover {
+      background-color: #0a8baf;
+}
+.dashboard-chart-legend {
+      display: flex;
+      justify-content: space-around;
+      font-size: 0.8rem;
+      color: #444;
+}
+
+/* Pie chart fake */
+.dashboard-pie-chart-fake {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ccc;
+}
+.dashboard-pie-slice {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+}
+.slice1 {
+      background: #0ea5e9;
+      transform: rotate(0deg);
+}
+.slice2 {
+      background: #a3e635;
+      transform: rotate(90deg);
+}
+.slice3 {
+      background: #fbbf24;
+      transform: rotate(180deg);
+}
+.slice4 {
+      background: #f472b6;
+      transform: rotate(270deg);
+}
+
+/* Line chart fake */
+.dashboard-line-chart-fake {
+      width: 100%;
+      height: 120px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+}
+.dashboard-line-chart-fake svg {
+      width: 80%;
+      height: 80%;
+}
+
+
+/* Horizontal bars */
+.dashboard-barh-chart-fake {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+}
+.dashboard-barh-item {
+      background: #0ea5e9;
+      color: #fff;
+      text-align: left;
+      padding: 0.3rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      position: relative;
+}
+
+/****************************
+      Sección: Top 5 Más Vendidos
+****************************/
+.dashboard-top-products-section {
+      width: 90%;
+      max-width: 1400px;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      margin-bottom: 2rem;
+}
+.dashboard-section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #075985;
+      margin-bottom: 1rem;
+      text-align: center;
+}
+
+.dashboard-top-table {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+}
+.dashboard-top-table-header {
+      display: flex;
+      background: #e2e8f0;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 0.5rem;
+      color: #444;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+}
+.top-col {
+      flex: 1;
+      padding: 0 0.5rem;
+}
+.col-name {
+      flex: 2;
+}
+.dashboard-top-table-row {
+      display: flex;
+      background: #fff;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+      transition: background-color 0.2s ease;
+      font-size: 0.9rem;
+}
+.dashboard-top-table-row:hover {
+      background-color: #f9fafb;
+}
+.dashboard-top-table-row .top-col {
+      padding: 0.5rem 0.5rem;
+}
+
+/****************************
+      Sección: Top 5 Menos Vendidos
+****************************/
+.dashboard-bottom-products-section {
+      width: 90%;
+      max-width: 1400px;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      margin-bottom: 2rem;
+}
+
+.dashboard-bottom-table {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+}
+.dashboard-bottom-table-header {
+      display: flex;
+      background: #e2e8f0;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 0.5rem;
+      color: #444;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+}
+.bottom-col {
+      flex: 1;
+      padding: 0 0.5rem;
+}
+.dashboard-bottom-table-row {
+      display: flex;
+      background: #fff;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+      transition: background-color 0.2s ease;
+      font-size: 0.9rem;
+}
+.dashboard-bottom-table-row:hover {
+      background-color: #f9fafb;
+}
+.dashboard-bottom-table-row .bottom-col {
+      padding: 0.5rem 0.5rem;
+}
+
+/****************************
+      Responsivo
+****************************/
+@media (max-width: 768px) {
+      .dashboard-cards-section {
+            flex-direction: column;
+            align-items: center;
+      }
+
+      .dashboard-charts-grid {
+            grid-template-columns: 1fr;
+      }
+
+      .dashboard-chart-fake-graph {
+            height: 120px;
+      }
+
+      .dashboard-top-table-header,
+      .dashboard-top-table-row,
+      .dashboard-bottom-table-header,
+      .dashboard-bottom-table-row {
+            flex-direction: column;
+            align-items: flex-start;
+      }
+      .top-col, .bottom-col {
+            margin: 4px 0;
+      }
+}

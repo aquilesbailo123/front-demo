@@ -11,6 +11,9 @@ export interface Product {
       equivalent_products?: number[];
       sales: number;
       brand: string;
+
+      category: string; 
+      customer_satisfaction: string; 
 }
 
 export const ALL_PRODUCTS: Product[] = [
@@ -28,7 +31,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [2], // Equivalencia con Motor Diesel B
             "parent_products": [],
             "sales": 12,
-            "brand": "International"
+            "brand": "International",
+            "category": "motores principales",
+            "customer_satisfaction": "4"
       },
       {
             "id": 2,
@@ -41,7 +46,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [1], // Equivalencia con Motor Diesel A
             "parent_products": [],
             "sales": 7,
-            "brand": "Freightliner"
+            "brand": "Freightliner",
+            "category": "motores principales",
+            "customer_satisfaction": "5"
       },
       {
             "id": 3,
@@ -54,7 +61,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [4], // Equivalencia con Motor Diesel D
             "parent_products": [],
             "sales": 3,
-            "brand": "Volvo"
+            "brand": "Volvo",
+            "category": "motores principales",
+            "customer_satisfaction": "3"
       },
       {
             "id": 4,
@@ -67,7 +76,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [3], // Equivalencia con Motor Diesel C
             "parent_products": [],
             "sales": 10,
-            "brand": "Scania"
+            "brand": "Scania",
+            "category": "motores principales",
+            "customer_satisfaction": "4"
       },
       {
             "id": 5,
@@ -80,7 +91,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [51], // Equivalencia con Motor Diesel F
             "parent_products": [],
             "sales": 6,
-            "brand": "Mercedes-Benz"
+            "brand": "Mercedes-Benz",
+            "category": "motores principales",
+            "customer_satisfaction": "5"
       },
       {
             "id": 51,
@@ -93,8 +106,10 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [5], // Equivalencia con Motor Diesel E
             "parent_products": [],
             "sales": 9,
-            "brand": "Iveco"
-      },
+            "brand": "Iveco",
+            "category": "motores principales",
+            "customer_satisfaction": "4"
+      },      
 
       // -------------------------------------------------
       // NUEVOS MOTORES (para cubrir todas las marcas faltantes)
@@ -110,7 +125,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [62], // Equivalencia con Motor Diesel H
             "parent_products": [],
             "sales": 4,
-            "brand": "Agrale"
+            "brand": "Agrale",
+            "category": "motores especializados",
+            "customer_satisfaction": "4"
       },
       {
             "id": 62,
@@ -123,7 +140,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [61], // Equivalencia con Motor Diesel G
             "parent_products": [],
             "sales": 5,
-            "brand": "Hino"
+            "brand": "Hino",
+            "category": "motores especializados",
+            "customer_satisfaction": "5"
       },
       {
             "id": 63,
@@ -136,7 +155,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [64], // Equivalencia con Motor Diesel J
             "parent_products": [],
             "sales": 2,
-            "brand": "MAN"
+            "brand": "MAN",
+            "category": "motores especializados",
+            "customer_satisfaction": "3"
       },
       {
             "id": 64,
@@ -149,9 +170,11 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [63], // Equivalencia con Motor Diesel I
             "parent_products": [],
             "sales": 6,
-            "brand": "Volkswagen"
+            "brand": "Volkswagen",
+            "category": "motores especializados",
+            "customer_satisfaction": "4"
       },
-
+      
       // -------------------------------------------------
       // PIEZAS (hijos, con un solo motor como parent_products)
       // -------------------------------------------------
@@ -166,7 +189,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 25,
-            "brand": "MANN Filter"
+            "brand": "MANN Filter",
+            "category": "filtros",
+            "customer_satisfaction": "4"
       },
       {
             "id": 7,
@@ -179,7 +204,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 12,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "bombas",
+            "customer_satisfaction": "5"
       },
       {
             "id": 8,
@@ -189,11 +216,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "89.99",
             "stock": 20,
             "image": "/images/inyector.jpg",
-            "equivalent_products": [49, 66, 58], 
-            // Relacionado con varios inyectores
+            "equivalent_products": [49, 66, 58],
             "parent_products": [2],
             "sales": 8,
-            "brand": "Delphi"
+            "brand": "Delphi",
+            "category": "inyectores",
+            "customer_satisfaction": "3"
       },
       {
             "id": 9,
@@ -206,7 +234,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [10],
             "parent_products": [2],
             "sales": 17,
-            "brand": "Gates"
+            "brand": "Gates",
+            "category": "correas",
+            "customer_satisfaction": "4"
       },
       {
             "id": 10,
@@ -219,7 +249,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [9],
             "parent_products": [3],
             "sales": 21,
-            "brand": "Gates"
+            "brand": "Gates",
+            "category": "correas",
+            "customer_satisfaction": "5"
       },
       {
             "id": 11,
@@ -232,7 +264,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 14,
-            "brand": "MANN Filter"
+            "brand": "MANN Filter",
+            "category": "filtros",
+            "customer_satisfaction": "4"
       },
       {
             "id": 12,
@@ -242,11 +276,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "499.99",
             "stock": 2,
             "image": "/images/turbocharger.jpg",
-            "equivalent_products": [67], 
-            // Equivalente con Turbo de Geometría Variable
+            "equivalent_products": [67],
             "parent_products": [3],
             "sales": 4,
-            "brand": "Garrett"
+            "brand": "Garrett",
+            "category": "turbos",
+            "customer_satisfaction": "5"
       },
       {
             "id": 13,
@@ -259,8 +294,10 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [3],
             "sales": 5,
-            "brand": "Bosch"
-      },
+            "brand": "Bosch",
+            "category": "sistemas electrónicos",
+            "customer_satisfaction": "3"
+      },      
       {
             "id": 14,
             "name": "Radiador",
@@ -272,7 +309,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [4],
             "sales": 3,
-            "brand": "Valeo"
+            "brand": "Valeo",
+            "category": "sistemas de refrigeración",
+            "customer_satisfaction": "4"
       },
       {
             "id": 15,
@@ -285,7 +324,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [16],
             "parent_products": [4],
             "sales": 22,
-            "brand": "Denso"
+            "brand": "Denso",
+            "category": "sistemas de refrigeración",
+            "customer_satisfaction": "5"
       },
       {
             "id": 16,
@@ -298,7 +339,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [15],
             "parent_products": [4],
             "sales": 30,
-            "brand": "GenFan"
+            "brand": "GenFan",
+            "category": "sistemas de refrigeración",
+            "customer_satisfaction": "3"
       },
       {
             "id": 17,
@@ -311,7 +354,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [5],
             "sales": 2,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "4"
       },
       {
             "id": 18,
@@ -324,7 +369,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 6,
-            "brand": "ACDelco"
+            "brand": "ACDelco",
+            "category": "componentes internos",
+            "customer_satisfaction": "5"
       },
       {
             "id": 19,
@@ -337,7 +384,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [2],
             "sales": 18,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "bombas",
+            "customer_satisfaction": "5"
       },
       {
             "id": 20,
@@ -350,7 +399,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [5],
             "sales": 4,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "4"
       },
       {
             "id": 21,
@@ -363,8 +414,10 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [22],
             "parent_products": [3],
             "sales": 9,
-            "brand": "Walker"
-      },
+            "brand": "Walker",
+            "category": "sistemas de escape",
+            "customer_satisfaction": "3"
+      },      
       {
             "id": 22,
             "name": "Múltiple de Escape Premium",
@@ -376,7 +429,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [21],
             "parent_products": [3],
             "sales": 6,
-            "brand": "Walker"
+            "brand": "Walker",
+            "category": "sistemas de escape",
+            "customer_satisfaction": "4",
       },
       {
             "id": 23,
@@ -389,7 +444,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 28,
-            "brand": "NGK"
+            "brand": "NGK",
+            "category": "sistemas electrónicos",
+            "customer_satisfaction": "5",
       },
       {
             "id": 24,
@@ -402,7 +459,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [2],
             "sales": 7,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "sensores electrónicos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 25,
@@ -415,7 +474,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [5],
             "sales": 10,
-            "brand": "SKF"
+            "brand": "SKF",
+            "category": "componentes internos",
+            "customer_satisfaction": "5",
       },
       {
             "id": 26,
@@ -428,7 +489,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [3],
             "sales": 12,
-            "brand": "Victor Reinz"
+            "brand": "Victor Reinz",
+            "category": "accesorios y otros",
+            "customer_satisfaction": "4",
       },
       {
             "id": 27,
@@ -438,11 +501,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "199.99",
             "stock": 2,
             "image": "/images/valve.jpg",
-            "equivalent_products": [55], 
-            // Equivalente con Cámara de Combustión Reforzada
+            "equivalent_products": [55],
             "parent_products": [5],
             "sales": 3,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "3",
       },
       {
             "id": 28,
@@ -452,11 +516,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "24.99",
             "stock": 20,
             "image": "/images/valve.jpg",
-            "equivalent_products": [60], 
-            // Equivalente con Válvula de Escape Cerámica
+            "equivalent_products": [60],
             "parent_products": [3],
             "sales": 15,
-            "brand": "TRW"
+            "brand": "TRW",
+            "category": "válvulas",
+            "customer_satisfaction": "5",
       },
       {
             "id": 29,
@@ -469,8 +534,10 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 11,
-            "brand": "TRW"
-      },
+            "brand": "TRW",
+            "category": "válvulas",
+            "customer_satisfaction": "4",
+      },      
       {
             "id": 30,
             "name": "Bomba de Agua",
@@ -482,7 +549,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [4],
             "sales": 6,
-            "brand": "ACDelco"
+            "brand": "ACDelco",
+            "category": "sistemas de refrigeración",
+            "customer_satisfaction": "5",
       },
       {
             "id": 31,
@@ -492,11 +561,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "19.99",
             "stock": 10,
             "image": "/images/electronic_module.jpg",
-            "equivalent_products": [57], 
-            // Equivalente con Termostato Inteligente
+            "equivalent_products": [57],
             "parent_products": [2],
             "sales": 9,
-            "brand": "Stant"
+            "brand": "Stant",
+            "category": "sistemas de refrigeración",
+            "customer_satisfaction": "4",
       },
       {
             "id": 32,
@@ -509,7 +579,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [3],
             "sales": 12,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "sensores electrónicos",
+            "customer_satisfaction": "5",
       },
       {
             "id": 33,
@@ -519,11 +591,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "129.99",
             "stock": 2,
             "image": "/images/crankshaft.jpg",
-            "equivalent_products": [59], 
-            // Equivalente con Bielas Reforzadas
+            "equivalent_products": [59],
             "parent_products": [5],
             "sales": 4,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 34,
@@ -536,7 +609,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [35],
             "parent_products": [1],
             "sales": 8,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "5",
       },
       {
             "id": 35,
@@ -549,7 +624,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [34],
             "parent_products": [5],
             "sales": 2,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "3",
       },
       {
             "id": 36,
@@ -559,11 +636,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "349.99",
             "stock": 3,
             "image": "/images/bomb.jpg",
-            "equivalent_products": [68], 
-            // Equivalente con Bomba Common Rail
+            "equivalent_products": [68],
             "parent_products": [2],
             "sales": 5,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "bombas",
+            "customer_satisfaction": "5",
       },
       {
             "id": 37,
@@ -576,8 +654,10 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [5],
             "sales": 10,
-            "brand": "ACDelco"
-      },
+            "brand": "ACDelco",
+            "category": "componentes internos",
+            "customer_satisfaction": "4",
+      },      
       {
             "id": 38,
             "name": "Culata",
@@ -586,11 +666,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "599.99",
             "stock": 2,
             "image": "/images/valve.jpg",
-            "equivalent_products": [48], 
-            // Equivalente con Culata Reforzada
+            "equivalent_products": [48],
             "parent_products": [3],
             "sales": 1,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 39,
@@ -603,7 +684,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [4],
             "sales": 3,
-            "brand": "LUK"
+            "brand": "LUK",
+            "category": "componentes internos",
+            "customer_satisfaction": "5",
       },
       {
             "id": 40,
@@ -616,7 +699,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 27,
-            "brand": "Monroe"
+            "brand": "Monroe",
+            "category": "soportes y bases",
+            "customer_satisfaction": "4",
       },
       {
             "id": 41,
@@ -629,7 +714,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [2],
             "sales": 34,
-            "brand": "MANN Filter"
+            "brand": "MANN Filter",
+            "category": "filtros",
+            "customer_satisfaction": "5",
       },
       {
             "id": 42,
@@ -642,7 +729,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [4],
             "sales": 11,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "sensores electrónicos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 43,
@@ -655,7 +744,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [3],
             "sales": 19,
-            "brand": "NGK"
+            "brand": "NGK",
+            "category": "sistemas electrónicos",
+            "customer_satisfaction": "5",
       },
       {
             "id": 44,
@@ -668,7 +759,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [2],
             "sales": 5,
-            "brand": "Walker"
+            "brand": "Walker",
+            "category": "componentes internos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 45,
@@ -681,12 +774,14 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [3],
             "sales": 2,
-            "brand": "Bosch"
-      },
+            "brand": "Bosch",
+            "category": "sensores electrónicos",
+            "customer_satisfaction": "5",
+      },      
       {
             "id": 46,
             "name": "Eje de Balance",
-            "description": "Reduce la vibración del motor equilibrando las fuerzas internas.",
+            "description": "Reduce la vibración del motor equilibrando las fuerzas internas",
             "part_number": "EB-3646",
             "price": "179.99",
             "stock": 3,
@@ -694,7 +789,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [5],
             "sales": 7,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 47,
@@ -707,7 +804,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [4],
             "sales": 3,
-            "brand": "MagnaFlow"
+            "brand": "MagnaFlow",
+            "category": "sistemas de escape",
+            "customer_satisfaction": "5",
       },
       {
             "id": 48,
@@ -720,7 +819,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [38],
             "parent_products": [4],
             "sales": 2,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "3",
       },
       {
             "id": 49,
@@ -730,11 +831,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "99.99",
             "stock": 7,
             "image": "/images/inyector.jpg",
-            "equivalent_products": [8, 66, 58], 
-            // Mismo grupo de inyectores
+            "equivalent_products": [8, 66, 58],
             "parent_products": [2],
             "sales": 10,
-            "brand": "Delphi"
+            "brand": "Delphi",
+            "category": "inyectores",
+            "customer_satisfaction": "4",
       },
       {
             "id": 50,
@@ -747,8 +849,10 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [1],
             "sales": 6,
-            "brand": "Denso"
-      },
+            "brand": "Denso",
+            "category": "sistemas electrónicos",
+            "customer_satisfaction": "5",
+      },      
 
       // -------------------------------------------------
       // PIEZAS NUEVAS (ajustadas a un solo motor)
@@ -764,7 +868,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [51],
             "sales": 2,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "sensores electrónicos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 53,
@@ -777,7 +883,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [51],
             "sales": 1,
-            "brand": "ACDelco"
+            "brand": "ACDelco",
+            "category": "bombas",
+            "customer_satisfaction": "5",
       },
       {
             "id": 54,
@@ -790,7 +898,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [51],
             "sales": 4,
-            "brand": "ACDelco"
+            "brand": "ACDelco",
+            "category": "componentes internos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 55,
@@ -803,7 +913,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [27],
             "parent_products": [51],
             "sales": 3,
-            "brand": "Mahle"
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "3",
       },
       {
             "id": 56,
@@ -816,7 +928,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [2],
             "sales": 2,
-            "brand": "Pierburg"
+            "brand": "Pierburg",
+            "category": "bombas",
+            "customer_satisfaction": "5",
       },
       {
             "id": 57,
@@ -829,7 +943,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [31],
             "parent_products": [4],
             "sales": 8,
-            "brand": "Stant"
+            "brand": "Stant",
+            "category": "sistemas de refrigeración",
+            "customer_satisfaction": "4",
       },
       {
             "id": 58,
@@ -839,11 +955,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "139.99",
             "stock": 4,
             "image": "/images/inyector.jpg",
-            "equivalent_products": [8, 49, 66], 
-            // Mismo grupo de inyectores
+            "equivalent_products": [8, 49, 66],
             "parent_products": [51],
             "sales": 5,
-            "brand": "Delphi"
+            "brand": "Delphi",
+            "category": "inyectores",
+            "customer_satisfaction": "5",
       },
       {
             "id": 59,
@@ -856,8 +973,10 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [33],
             "parent_products": [51],
             "sales": 2,
-            "brand": "Mahle"
-      },
+            "brand": "Mahle",
+            "category": "componentes internos",
+            "customer_satisfaction": "4",
+      },      
       {
             "id": 60,
             "name": "Válvula de Escape Cerámica",
@@ -869,7 +988,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [28],
             "parent_products": [51],
             "sales": 1,
-            "brand": "TRW"
+            "brand": "TRW",
+            "category": "válvulas",
+            "customer_satisfaction": "4",
       },
       {
             "id": 65,
@@ -882,7 +1003,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [],
             "parent_products": [61],
             "sales": 1,
-            "brand": "Bosch"
+            "brand": "Bosch",
+            "category": "filtros",
+            "customer_satisfaction": "5",
       },
       {
             "id": 66,
@@ -892,11 +1015,12 @@ export const ALL_PRODUCTS: Product[] = [
             "price": "129.99",
             "stock": 4,
             "image": "/images/inyector.jpg",
-            "equivalent_products": [8, 49, 58], 
-            // Mismo grupo de inyectores
+            "equivalent_products": [8, 49, 58],
             "parent_products": [62],
             "sales": 2,
-            "brand": "Delphi"
+            "brand": "Delphi",
+            "category": "inyectores",
+            "customer_satisfaction": "5",
       },
       {
             "id": 67,
@@ -909,7 +1033,9 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [12],
             "parent_products": [63],
             "sales": 1,
-            "brand": "Garrett"
+            "brand": "Garrett",
+            "category": "turbos",
+            "customer_satisfaction": "4",
       },
       {
             "id": 68,
@@ -922,6 +1048,8 @@ export const ALL_PRODUCTS: Product[] = [
             "equivalent_products": [36],
             "parent_products": [64],
             "sales": 2,
-            "brand": "Bosch"
-      }
+            "brand": "Bosch",
+            "category": "bombas",
+            "customer_satisfaction": "5",
+      }      
 ];

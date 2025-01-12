@@ -5,6 +5,7 @@ import { Routes , Route } from 'react-router-dom'
 import Home from './pages/Home/Home';
 import Admin from './pages/Admin/Admin';
 import Manager from './pages/Manager/Manager';
+import Dashboard from './pages/Dashboard/Dashboard';
 import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
                         <Route path='/' element={<Home />}/>
                         <Route path='/admin' element={<Admin />}/>
                         <Route path='/sales-management' element={<Manager />}/>
+                        <Route path='/dashboard' element={<Dashboard />}/>
                         {/* <Route path='/quotation/:id' element={<Result />}/> */}
                   </Routes>
             </div>
