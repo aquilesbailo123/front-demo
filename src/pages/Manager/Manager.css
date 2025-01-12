@@ -190,8 +190,8 @@
       width: 100%;
       border: none;
       outline: none;
-      font-size: 1rem;
-      padding: 0.4rem;
+      font-size: 1.2rem;       /* Más grande */
+      padding: 0.6rem;        /* Aumentar padding */
       color: #333;
       background: transparent;
 }
@@ -201,10 +201,10 @@
 ***************/
 .manager-recommendations-box {
       position: absolute;
-      top: 60px;
-      right: 0;
-      width: 300px;
-      max-height: 200px;
+      top: calc(100% + 5px);  /* Para que aparezca debajo del input */
+      left: 0;
+      width: 100%;           /* Ocupa todo el ancho del contenedor padre */
+      max-height: 250px;
       overflow-y: auto;
       background: #fefefe;
       border: 1px solid #ddd;
@@ -214,6 +214,7 @@
       flex-direction: column;
       gap: 0.5rem;
       padding: 0.5rem;
+      z-index: 999; /* Asegurarnos que se muestre por encima */
 }
 
 .manager-recommendation-item {
@@ -252,7 +253,7 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0,0,0,0.6);
-      z-index: 999;
+      z-index: 9999; /* encima del desplegable */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -343,9 +344,15 @@
       .manager-col {
             margin: 4px 0;
       }
+
+      .manager-bottom-search {
+            width: 90%;
+            margin: 1rem auto;
+      }
+
       .manager-recommendations-box {
             position: static;
-            width: 100%;
             margin-top: 0.5rem;
+            width: 100%;
       }
 }

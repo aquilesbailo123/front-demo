@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ALL_PRODUCTS, Product } from '../../assets/products';
 import './Manager.css';
 
@@ -27,11 +27,27 @@ function Manager() {
       const [modalSearchTerm, setModalSearchTerm] = useState<string>('');
       const [modalRecommendations, setModalRecommendations] = useState<Product[]>([]);
 
+      // Ref para el input principal, de modo que el cursor se posicione allí
+      const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+      // Refs para cada item de recomendación (para hacer scroll automático)
+      const recommendationItemsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+      /** 
+       * Efecto para enfocar el input principal al montar el componente.
+       */
+      useEffect(() => {
+            if (searchInputRef.current) {
+                  searchInputRef.current.focus();
+            }
+      }, []);
+
       /** 
        * Helper: buscar coincidencias en ALL_PRODUCTS, contemplando equivalentes.
        */
       function searchInProducts(term: string, products: Product[]): Product[] {
             const lowerTerm = term.toLowerCase();
+
             const matched = products.filter((p) => {
                   const directMatch =
                         p.name.toLowerCase().includes(lowerTerm) ||
@@ -56,7 +72,7 @@ function Manager() {
                   return false;
             });
 
-            // Ordenar (básico) según la posición del término en el name
+            // Ordenar (básico) según la posición del término en el nombre
             return matched.sort((a, b) => {
                   const idxA = a.name.toLowerCase().indexOf(lowerTerm);
                   const idxB = b.name.toLowerCase().indexOf(lowerTerm);
@@ -89,6 +105,18 @@ function Manager() {
             const found = searchInProducts(modalSearchTerm, ALL_PRODUCTS);
             setModalRecommendations(found);
       }, [modalSearchTerm]);
+
+      /**
+       * Efecto para hacer scroll hacia el item seleccionado en el desplegable
+       */
+      useEffect(() => {
+            if (selectedIndex >= 0 && selectedIndex < recommendationItemsRef.current.length) {
+                  recommendationItemsRef.current[selectedIndex]?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                  });
+            }
+      }, [selectedIndex]);
 
       /**
        * Manejar teclas en el input principal de búsqueda (Navegar y Enter).
@@ -287,6 +315,7 @@ function Manager() {
                   {/* Barra de búsqueda al final */}
                   <div className="manager-bottom-search">
                         <input
+                              ref={searchInputRef}
                               className="manager-search-input"
                               placeholder="Escriba el nombre del producto..."
                               value={searchTerm}
@@ -298,6 +327,7 @@ function Manager() {
                                     {recommendations.map((rec, idx) => (
                                           <div
                                                 key={rec.id}
+                                                ref={(el) => (recommendationItemsRef.current[idx] = el)}
                                                 className={`manager-recommendation-item ${
                                                       idx === selectedIndex ? 'selected' : ''
                                                 }`}
