@@ -115,7 +115,7 @@ function Dashboard() {
                   <AdminNavbar/>
 
                   {/* Título Principal */}
-                  <div className="dashboard-title">Dashboard de Ventas y Operaciones</div>
+                  <div className="dashboard-title archivo-black">Dashboard de Ventas y Operaciones</div>
 
                   {/* Tarjetas (Indicadores Clave) */}
                   <div className="dashboard-cards-section">

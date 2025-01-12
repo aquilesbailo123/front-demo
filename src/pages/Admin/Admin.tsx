@@ -26,7 +26,7 @@ function Admin() {
                   <AdminNavbar/>
 
                   {/* Título principal */}
-                  <div className="admin-title">Panel Administrador AGEPSA</div>
+                  <div className="admin-title archivo-black">Panel Administrador AGEPSA</div>
                   
                   {/* Información del asesor */}
                   <div className="admin-advisor-container">
@@ -36,7 +36,7 @@ function Admin() {
 
                   {/* Sección de resumen e indicadores */}
                   <div className="admin-summary">
-                        <div className="admin-summary-title">Indicadores Clave</div>
+                        <div className="admin-summary-title archivo-black">Indicadores Clave</div>
                         <div className="admin-summary-content">
                               <div className="admin-indicator">
                                     <div className="admin-indicator-label">Total de Ventas</div>
@@ -55,7 +55,7 @@ function Admin() {
 
                   {/* Sección de servicios */}
                   <div className="admin-services">
-                        <div className="admin-services-title">Servicios Disponibles</div>
+                        <div className="admin-services-title archivo-black">Servicios Disponibles</div>
                         <div className="admin-services-list">
                               <a href="/dashboard" className="admin-service-button">
                                     <div>Dashboard</div>

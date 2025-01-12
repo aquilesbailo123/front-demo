@@ -4,7 +4,7 @@ function AdminNavbar() {
       return (
             <div className="navbar-main-cont">
                   <div className="navbar-left">
-                        <div className="navbar-brand">AGEPSA</div>
+                        <a href="/" className="navbar-brand">AGEPSA</a>
                   </div>
                   <div className="navbar-links">
                         <a href="/" className="navbar-link">Inicio</a>

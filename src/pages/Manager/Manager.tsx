@@ -240,7 +240,7 @@ function Manager() {
                   <AdminNavbar/>
 
                   {/* Título principal */}
-                  <div className="manager-title">Sistema de Gestión de Ventas</div>
+                  <div className="manager-title archivo-black">Sistema de Gestión de Ventas</div>
 
                   {/* Botones para copiar/pegar la lista */}
                   <div className="manager-list-actions">

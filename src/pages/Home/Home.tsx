@@ -38,14 +38,14 @@ function Home() {
                         alt="Home Logo"
                   />
                   <div className="home-title">
-                        <div className="home-title-main">Bienvenido a AGEPSA</div>
+                        <div className="home-title-main archivo-black">Bienvenido a AGEPSA</div>
                         <div className="home-title-secondary">Los mejores repuestos de motores para buses</div>
                   </div>
             </div>
 
             {/* Explanation / Company Info */}
             <section className="agepsa-info fade-in">
-                  <div className="agepsa-info-main">¿Por qué AGEPSA?</div>
+                  <div className="agepsa-info-main archivo-black">¿Por qué AGEPSA?</div>
                   <div className="agepsa-info-secondary">
                         En AGEPSA somos líderes en la industria de repuestos para motores de
                         buses. Ofrecemos calidad, durabilidad y el mejor soporte para asegurar
@@ -56,7 +56,7 @@ function Home() {
 
             {/* Contact section */}
             <div className="contact-section fade-in">
-                  <div className="contact-text">Contacte con nosotros</div>
+                  <div className="contact-text ">Contacte con nosotros</div>
                   <a
                         className="whatsapp-button"
                         href="https://wa.me/51999999999"
@@ -69,7 +69,7 @@ function Home() {
 
             {/* Discounted products section */}
             <section className="products-section fade-in">
-                  <div className="products-section-title">Productos en Descuento (10% OFF)</div>
+                  <div className="products-section-title archivo-black">Productos en Descuento (10% OFF)</div>
                   <div className="products-grid">
                         {discountedProducts.map((product) => (
                               <div key={product.id} className="product-card discount-card">
@@ -90,7 +90,7 @@ function Home() {
 
             {/* Best sellers section */}
             <section className="products-section fade-in">
-                  <div className="products-section-title">¡Los Más Vendidos!</div>
+                  <div className="products-section-title archivo-black">¡Los Más Vendidos!</div>
                   <div className="products-grid">
                         {bestSellers.map((product) => (
                               <div key={product.id} className="product-card bestseller-card">
