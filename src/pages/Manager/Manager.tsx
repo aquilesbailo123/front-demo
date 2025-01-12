@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ALL_PRODUCTS, Product } from '../../assets/products';
+import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
 import './Manager.css';
 
 // Estructura de cada fila en la lista de productos
@@ -236,17 +237,7 @@ function Manager() {
 
       return (
             <div className="manager-main-container">
-                  {/* Navbar estilo negro */}
-                  <div className="manager-navbar">
-                        <div className="manager-navbar-left">
-                              <div className="manager-navbar-brand">AGEPSA</div>
-                        </div>
-                        <div className="manager-navbar-links">
-                              <a href="/" className="manager-navbar-link">Inicio</a>
-                              <a href="/admin" className="manager-navbar-link">Admin</a>
-                              <a href="/user" className="manager-navbar-link">Usuarios</a>
-                        </div>
-                  </div>
+                  <AdminNavbar/>
 
                   {/* Título principal */}
                   <div className="manager-title">Sistema de Gestión de Ventas</div>

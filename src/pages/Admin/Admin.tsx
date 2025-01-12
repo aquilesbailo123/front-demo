@@ -1,5 +1,6 @@
 import './Admin.css';
 import { useState, useEffect } from 'react';
+import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
 
 // Datos de ejemplo: asesor, estadísticas, etc.
 const ADMIN_INFO = {
@@ -22,17 +23,7 @@ function Admin() {
 
       return (
             <div className="admin-main-container">
-                  {/* Navbar estilo negro */}
-                  <div className="manager-navbar">
-                        <div className="manager-navbar-left">
-                              <div className="manager-navbar-brand">AGEPSA</div>
-                        </div>
-                        <div className="manager-navbar-links">
-                              <a href="/" className="manager-navbar-link">Inicio</a>
-                              <a href="/admin" className="manager-navbar-link">Admin</a>
-                              <a href="/user" className="manager-navbar-link">Usuarios</a>
-                        </div>
-                  </div>
+                  <AdminNavbar/>
 
                   {/* Título principal */}
                   <div className="admin-title">Panel Administrador AGEPSA</div>

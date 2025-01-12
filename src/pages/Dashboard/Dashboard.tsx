@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import './Dashboard.css';
 import { Product, ALL_PRODUCTS } from '../../assets/products';
+import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
 import {
       LineChart,
       Line,
@@ -111,18 +112,7 @@ function Dashboard() {
 
       return (
             <div className="dashboard-main-container">
-
-                  {/* NAVBAR */}
-                  <div className="dashboard-navbar">
-                        <div className="dashboard-navbar-left">
-                              <div className="dashboard-navbar-brand">AGEPSA</div>
-                        </div>
-                        <div className="dashboard-navbar-links">
-                              <a href="/" className="dashboard-navbar-link">Inicio</a>
-                              <a href="/manager" className="dashboard-navbar-link">Gestión</a>
-                              <a href="/admin" className="dashboard-navbar-link">Admin</a>
-                        </div>
-                  </div>
+                  <AdminNavbar/>
 
                   {/* Título Principal */}
                   <div className="dashboard-title">Dashboard de Ventas y Operaciones</div>
