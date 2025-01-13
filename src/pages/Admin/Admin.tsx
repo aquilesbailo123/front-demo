@@ -1,6 +1,7 @@
 import './Admin.css';
 import { useState, useEffect } from 'react';
 import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
+import { FaTachometerAlt, FaShoppingCart, FaBell, FaStore, FaTools } from 'react-icons/fa';
 
 // Datos de ejemplo: asesor, estadísticas, etc.
 const ADMIN_INFO = {
@@ -27,7 +28,7 @@ function Admin() {
 
                   {/* Título principal */}
                   <div className="admin-title archivo-black">Panel Administrador AGEPSA</div>
-                  
+                   
                   {/* Información del asesor */}
                   <div className="admin-advisor-container">
                         <div className="admin-advisor-name">{ADMIN_INFO.advisorName}</div>
@@ -55,19 +56,30 @@ function Admin() {
 
                   {/* Sección de servicios */}
                   <div className="admin-services">
-                        <div className="admin-services-title archivo-black">Servicios Disponibles</div>
-                        <div className="admin-services-list">
-                              <a href="/dashboard" className="admin-service-button">
-                                    <div>Dashboard</div>
-                              </a>
-                              <a href="/sales-management" className="admin-service-button">
-                                    <div>Sistema de Gestión de Ventas</div>
-                              </a>
-                              <a href="/notifications" className="admin-service-button">
-                                    <div>Notificaciones</div>
-                              </a>
-                        </div>
+                  <h2 className="admin-services-title archivo-black">Servicios Disponibles</h2>
+                  <div className="admin-services-links">
+                        <a href="/dashboard" className="admin-service-button">
+                              <FaTachometerAlt className="admin-service-icon" />
+                              <div>Dashboard</div>
+                        </a>
+                        <a href="/sales-management" className="admin-service-button">
+                              <FaShoppingCart className="admin-service-icon" />
+                              <div>Sistema de Gestión de Ventas</div>
+                        </a>
+                        <a href="/notifications" className="admin-service-button">
+                              <FaBell className="admin-service-icon" />
+                              <div>Notificaciones</div>
+                        </a>
+                        <a href="/" className="admin-service-button">
+                              <FaStore className="admin-service-icon" />
+                              <div>Marketplace</div>
+                        </a>
+                        <a href="/mekanico" className="admin-service-button">
+                              <FaTools className="admin-service-icon" />
+                              <div>Mekanico</div>
+                        </a>
                   </div>
+            </div>
 
                   {/* Footer */}
                   <div className="admin-footer">

@@ -28,6 +28,11 @@
       display: flex;
       gap: 1.5rem;
 }
+@media (max-width: 480px) {
+      .navbar-links {
+            display: none;
+      }
+}
 .navbar-link {
       color: var(--background-color);
       text-decoration: none;
@@ -36,4 +41,34 @@
 }
 .navbar-link:hover {
       color: var(--accent-color);
+}
+
+.navbar-collapse-icon {
+      display: none;
+      color: var(--background-color)
+}
+
+@media (max-width: 480px) {
+      .navbar-collapse-icon {
+            display: flex;
+      }
+}
+
+.navbar-hidden-list {
+      width: 100%;
+      background-color: var(--dark-background-color);
+      padding: 20px;
+      transition: opacity 0.5s ease-in-out;
+}
+
+.list-open {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 1; 
+}
+
+.list-hidden {
+      display: none;
+      opacity: 0; 
 }

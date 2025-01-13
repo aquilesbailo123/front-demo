@@ -16,6 +16,7 @@
       margin-top: 1.5rem;
       font-weight: bold;
       font-size: 1.6rem;
+      text-align: center;
       color: #075985;
 }
 
@@ -40,7 +41,7 @@
 .admin-summary {
       width: 90%;
       max-width: 1100px;
-      background: #fff;
+      background: var(--background-color);
       box-shadow: 0 3px 6px rgba(0,0,0,0.1);
       border-radius: 5px;
       margin-bottom: 2rem;
@@ -49,6 +50,7 @@
 
 .admin-summary-title {
       font-weight: bold;
+      text-align: center;
       font-size: 1.4rem;
       margin-bottom: 1.5rem;
       color: #075985;
@@ -62,7 +64,7 @@
 }
 
 .admin-indicator {
-      background: #f9fafb;
+      background: var(--light-color);
       border-radius: 4px;
       padding: 1rem;
       flex: 1 1 200px;
@@ -87,49 +89,136 @@
       font-weight: bold;
 }
 
+
 /* SECCIÓN DE SERVICIOS */
+
 .admin-services {
+      position: relative;
       width: 90%;
       max-width: 1100px;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+      margin: 2rem auto;
+      padding: 3rem 2rem;
+      border-radius: 5px;
+      background-color: var(--background-color);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      overflow: hidden;
+}
+
+/* Líneas cruzadas en el centro (sutiles y profesionales) */
+.admin-services::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 2px;
+      height: 160%;
+      background: rgba(0,0,0,0.05);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+}
+.admin-services::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 160%;
+      height: 2px;
+      background: rgba(0,0,0,0.05);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+}
+
+/* Toque adicional "cool" y profesional: círculos sutiles en esquinas */
+.admin-services .circle-decoration {
+      position: absolute;
+      border-radius: 50%;
+      background: #f7f7f7;
+      z-index: 0;
+      opacity: 0.2;
+      pointer-events: none;
+}
+/* Uno en la esquina superior izquierda */
+.admin-services .circle-decoration:nth-child(1) {
+      top: -100px;
+      left: -100px;
+      width: 200px;
+      height: 200px;
+}
+/* Otro en la esquina inferior derecha */
+.admin-services .circle-decoration:nth-child(2) {
+      bottom: -120px;
+      right: -120px;
+      width: 240px;
+      height: 240px;
+}
+
+/* Título */
+.admin-services-title {
+      font-size: 1.8rem;
+      text-align: center;
+      color: var(--primary-color);
+      z-index: 2;
       margin-bottom: 2rem;
 }
 
-.admin-services-title {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #075985;
-}
-
-.admin-services-list {
+/* Contenedor de enlaces */
+.admin-services-links {
+      position: relative;
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
+      justify-content: center;
+      gap: 1.5rem;
+      z-index: 2;
 }
 
+/* Botones de servicio */
 .admin-service-button {
-      flex: 1 1 280px;
-      background: linear-gradient(to right, #0ea5e9, #06b6d4);
-      color: #fff;
+      flex: 1 1 220px;
+      max-width: 260px;
+      background: #f9f9f9;
+      color: #333;
       text-decoration: none;
-      padding: 1.2rem;
+      padding: 1.5rem 1rem;
       text-align: center;
-      border-radius: 5px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-      transition: background-color 0.2s, transform 0.2s;
-}
-.admin-service-button:hover {
-      transform: translateY(-3px);
-      background-color: #0a8baf;
+      border-radius: 8px;
+      border: 1px solid rgba(0,0,0,0.1);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.04);
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 }
 
+.admin-service-button:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+      background: #f0f0f0;
+}
+
+/* Ícono dentro del botón */
+.admin-service-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #666;
+      transition: color 0.3s;
+}
+
+.admin-service-button:hover .admin-service-icon {
+      color: #333;
+}
+
+/* Texto dentro del botón */
 .admin-service-button div {
       font-weight: 600;
       font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 0.3rem;
+      color: #333;
 }
+
+
 
 /* FOOTER */
 .admin-footer {
