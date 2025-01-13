@@ -1,6 +1,5 @@
 // Notifications.tsx
 
-import React from 'react';
 import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
 import AdminBack from '../../components/admin/AdminBack/AdminBack';
 // Ejemplo de íconos de react-icons
