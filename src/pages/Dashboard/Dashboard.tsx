@@ -1,3 +1,5 @@
+// Dashboard.tsx
+
 import { useMemo } from 'react';
 import './Dashboard.css';
 import { Product, ALL_PRODUCTS } from '../../assets/products';
@@ -29,7 +31,7 @@ function Dashboard() {
       // Cálculo de estadísticas con useMemo para optimizar
       const stats = useMemo(() => {
             const sortedBySalesDesc = [...ALL_PRODUCTS].sort((a, b) => b.sales - a.sales); // Mayor a menor
-            const sortedBySalesAsc = [...ALL_PRODUCTS].sort((a, b) => a.sales - b.sales); // Menor a mayor
+            const sortedBySalesAsc = [...ALL_PRODUCTS].sort((a, b) => a.sales - b.sales);  // Menor a mayor
 
             // Total de ventas (sumando "sales" como número de ítems vendidos)
             const totalSales = ALL_PRODUCTS.reduce((acc, p) => acc + p.sales, 0);
@@ -48,7 +50,6 @@ function Dashboard() {
 
             // Ventas por Categoría
             const salesByCategoryMap: { [key: string]: number } = {};
-            
             ALL_PRODUCTS.forEach((p: Product) => {
                   const categoryKey = String(p.category);
                   if (salesByCategoryMap[categoryKey]) {
@@ -80,20 +81,18 @@ function Dashboard() {
 
             // Satisfacción del Cliente (Distribución)
             const satisfactionLevelsMap: { [key: string]: number } = {
-                  "1": 0,
-                  "2": 0,
-                  "3": 0,
-                  "4": 0,
-                  "5": 0,
+                  '1': 0,
+                  '2': 0,
+                  '3': 0,
+                  '4': 0,
+                  '5': 0,
             };
-
             ALL_PRODUCTS.forEach((p) => {
                   const level = String(p.customer_satisfaction); // "1", "2", "3", "4", or "5"
                   if (satisfactionLevelsMap[level] !== undefined) {
-                  satisfactionLevelsMap[level] += 1;
+                        satisfactionLevelsMap[level] += 1;
                   }
             });
-
             const customerSatisfaction = Object.keys(satisfactionLevelsMap).map((level) => ({
                   satisfactionLevel: level,
                   value: satisfactionLevelsMap[level],
@@ -113,11 +112,13 @@ function Dashboard() {
 
       return (
             <div className="dashboard-main-container">
-                  <AdminNavbar/>
-                  <AdminBack/>
+                  <AdminNavbar />
+                  <AdminBack />
 
                   {/* Título Principal */}
-                  <div className="dashboard-title archivo-black">Dashboard de Ventas y Operaciones</div>
+                  <div className="dashboard-title archivo-black">
+                        Dashboard de Ventas y Operaciones
+                  </div>
 
                   {/* Tarjetas (Indicadores Clave) */}
                   <div className="dashboard-cards-section">
@@ -154,7 +155,12 @@ function Dashboard() {
                                           <YAxis />
                                           <Tooltip />
                                           <Legend />
-                                          <Line type="monotone" dataKey="sales" stroke="#0ea5e9" activeDot={{ r: 8 }} />
+                                          <Line
+                                                type="monotone"
+                                                dataKey="sales"
+                                                stroke="#0ea5e9"
+                                                activeDot={{ r: 8 }}
+                                          />
                                     </LineChart>
                               </ResponsiveContainer>
                         </div>
@@ -176,11 +182,13 @@ function Dashboard() {
                                                 label
                                           >
                                                 {stats.salesByCategory.map((_, index) => (
-                                                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                                      <Cell
+                                                            key={`cell-${index}`}
+                                                            fill={COLORS[index % COLORS.length]}
+                                                      />
                                                 ))}
                                           </Pie>
                                           <Tooltip />
-                                          {/* <Legend /> */}
                                     </PieChart>
                               </ResponsiveContainer>
                         </div>
@@ -202,13 +210,15 @@ function Dashboard() {
 
                         {/* Gráfica 4: Distribución de Satisfacción del Cliente */}
                         <div className="dashboard-chart-box">
-                              <div className="dashboard-chart-title">Distribución de Satisfacción del Cliente</div>
+                              <div className="dashboard-chart-title">
+                                    Distribución de Satisfacción del Cliente
+                              </div>
                               <ResponsiveContainer width="100%" height={300}>
                                     <PieChart>
                                           <Pie
                                                 data={stats.customerSatisfaction}
-                                                dataKey="value" // Update this to match your data field
-                                                nameKey="satisfaction" // Update this to match your data field
+                                                dataKey="value"
+                                                nameKey="satisfactionLevel"
                                                 cx="50%"
                                                 cy="50%"
                                                 innerRadius={60}
@@ -216,21 +226,26 @@ function Dashboard() {
                                                 fill="#8884d8"
                                                 label
                                           >
-                                          {stats.customerSatisfaction.map((_, index) => (
-                                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                          ))}
+                                                {stats.customerSatisfaction.map((_, index) => (
+                                                      <Cell
+                                                            key={`cell-${index}`}
+                                                            fill={COLORS[index % COLORS.length]}
+                                                      />
+                                                ))}
                                           </Pie>
                                           <Tooltip />
                                     </PieChart>
                               </ResponsiveContainer>
                         </div>
-
                   </div>
 
                   {/* Sección: Top 5 Más Vendidos */}
                   <div className="dashboard-top-products-section">
-                        <div className="dashboard-section-title">Top 5 Productos Más Vendidos</div>
-                        <div className="dashboard-top-table">
+                        <div className="dashboard-section-title">
+                              Top 5 Productos Más Vendidos
+                        </div>
+                        {/* Contenedor scrolleable */}
+                        <div className="dashboard-table-container">
                               <div className="dashboard-top-table-header">
                                     <div className="top-col col-name">Producto</div>
                                     <div className="top-col col-brand">Marca</div>
@@ -239,12 +254,19 @@ function Dashboard() {
                                     <div className="top-col col-stock">Stock</div>
                               </div>
                               {stats.top5.map((product) => (
-                                    <div className="dashboard-top-table-row" key={product.id}>
+                                    <div
+                                          className="dashboard-top-table-row"
+                                          key={product.id}
+                                    >
                                           <div className="top-col col-name">{product.name}</div>
                                           <div className="top-col col-brand">{product.brand}</div>
                                           <div className="top-col col-sales">{product.sales}</div>
-                                          <div className="top-col col-price">S/.{product.price}</div>
-                                          <div className="top-col col-stock">{product.stock}</div>
+                                          <div className="top-col col-price">
+                                                S/.{product.price}
+                                          </div>
+                                          <div className="top-col col-stock">
+                                                {product.stock}
+                                          </div>
                                     </div>
                               ))}
                         </div>
@@ -252,8 +274,11 @@ function Dashboard() {
 
                   {/* Sección: Top 5 Menos Vendidos */}
                   <div className="dashboard-bottom-products-section">
-                        <div className="dashboard-section-title">Top 5 Productos Menos Vendidos</div>
-                        <div className="dashboard-bottom-table">
+                        <div className="dashboard-section-title">
+                              Top 5 Productos Menos Vendidos
+                        </div>
+                        {/* Contenedor scrolleable */}
+                        <div className="dashboard-table-container">
                               <div className="dashboard-bottom-table-header">
                                     <div className="bottom-col col-name">Producto</div>
                                     <div className="bottom-col col-brand">Marca</div>
@@ -262,7 +287,10 @@ function Dashboard() {
                                     <div className="bottom-col col-stock">Stock</div>
                               </div>
                               {stats.bottom5.map((product) => (
-                                    <div className="dashboard-bottom-table-row" key={product.id}>
+                                    <div
+                                          className="dashboard-bottom-table-row"
+                                          key={product.id}
+                                    >
                                           <div className="bottom-col col-name">{product.name}</div>
                                           <div className="bottom-col col-brand">{product.brand}</div>
                                           <div className="bottom-col col-sales">{product.sales}</div>
