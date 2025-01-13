@@ -126,7 +126,7 @@
 
 .mekanico-feature-card {
       background: #fff;
-      flex: 1 1 280px;
+      flex: 1;
       border-radius: 5px;
       box-shadow: 0 3px 6px rgba(0,0,0,0.1);
       padding: 1rem;
