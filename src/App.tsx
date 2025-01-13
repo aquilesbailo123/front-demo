@@ -3,6 +3,7 @@ import Home from './pages/Home/Home';
 import Admin from './pages/Admin/Admin';
 import Manager from './pages/Manager/Manager';
 import Dashboard from './pages/Dashboard/Dashboard';
+import Mekanico from './pages/Mekanico/Mekanico';
 import './App.css'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
                         <Route path='/admin' element={<Admin />}/>
                         <Route path='/sales-management' element={<Manager />}/>
                         <Route path='/dashboard' element={<Dashboard />}/>
+                        <Route path='/mekanico' element={<Mekanico />}/>
                   </Routes>
             </div>
       )
