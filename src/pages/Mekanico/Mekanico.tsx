@@ -1,8 +1,5 @@
 // Mekanico.tsx
 
-import React from 'react';
-import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
-import AdminBack from '../../components/admin/AdminBack/AdminBack';
 // Puedes usar un ícono de react-icons como referencia (opcional)
 // import { FaTools } from 'react-icons/fa';
 import './Mekanico.css';
