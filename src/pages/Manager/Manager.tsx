@@ -1,11 +1,14 @@
+// Manager.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { ALL_PRODUCTS, Product } from '../../assets/products';
 import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
+import AdminBack from '../../components/admin/AdminBack/AdminBack';
 import './Manager.css';
 
 // Estructura de cada fila en la lista de productos
 interface ProductRow {
       product: Product;
+      amount?: number; // Para la cantidad solicitada
 }
 
 function Manager() {
@@ -28,24 +31,27 @@ function Manager() {
       const [modalSearchTerm, setModalSearchTerm] = useState<string>('');
       const [modalRecommendations, setModalRecommendations] = useState<Product[]>([]);
 
-      // Ref para el input principal, de modo que el cursor se posicione allí
+      // Guardamos la cantidad que se está editando en el modal
+      const [editAmount, setEditAmount] = useState<number>(1);
+
+      // Ref para el input principal
       const searchInputRef = useRef<HTMLInputElement | null>(null);
 
       // Refs para cada item de recomendación (para hacer scroll automático)
       const recommendationItemsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-      /** 
-       * Efecto para enfocar el input principal al montar el componente.
-       */
+      /****************************************
+       * Efecto: Enfocar el input principal al montar
+       ****************************************/
       useEffect(() => {
             if (searchInputRef.current) {
                   searchInputRef.current.focus();
             }
       }, []);
 
-      /** 
-       * Helper: buscar coincidencias en ALL_PRODUCTS, contemplando equivalentes.
-       */
+      /****************************************
+       * Buscar coincidencias en ALL_PRODUCTS
+       ****************************************/
       function searchInProducts(term: string, products: Product[]): Product[] {
             const lowerTerm = term.toLowerCase();
 
@@ -81,9 +87,9 @@ function Manager() {
             });
       }
 
-      /**
-       * Actualizar recomendaciones cada vez que searchTerm cambie.
-       */
+      /****************************************
+       * Efecto: Actualizar recomendaciones (input principal)
+       ****************************************/
       useEffect(() => {
             if (searchTerm.trim() === '') {
                   setRecommendations([]);
@@ -95,9 +101,9 @@ function Manager() {
             setSelectedIndex(-1);
       }, [searchTerm]);
 
-      /**
-       * Modal: actualizar recomendaciones cada vez que modalSearchTerm cambie.
-       */
+      /****************************************
+       * Efecto: Actualizar recomendaciones (en modal)
+       ****************************************/
       useEffect(() => {
             if (modalSearchTerm.trim() === '') {
                   setModalRecommendations([]);
@@ -107,11 +113,14 @@ function Manager() {
             setModalRecommendations(found);
       }, [modalSearchTerm]);
 
-      /**
-       * Efecto para hacer scroll hacia el item seleccionado en el desplegable
-       */
+      /****************************************
+       * Efecto: Scroll hacia el item seleccionado
+       ****************************************/
       useEffect(() => {
-            if (selectedIndex >= 0 && selectedIndex < recommendationItemsRef.current.length) {
+            if (
+                  selectedIndex >= 0 &&
+                  selectedIndex < recommendationItemsRef.current.length
+            ) {
                   recommendationItemsRef.current[selectedIndex]?.scrollIntoView({
                         behavior: 'smooth',
                         block: 'nearest',
@@ -119,9 +128,9 @@ function Manager() {
             }
       }, [selectedIndex]);
 
-      /**
-       * Manejar teclas en el input principal de búsqueda (Navegar y Enter).
-       */
+      /****************************************
+       * Teclas en el input principal
+       ****************************************/
       function handleKeyDownMain(e: React.KeyboardEvent<HTMLInputElement>) {
             if (recommendations.length === 0) return;
 
@@ -148,64 +157,80 @@ function Manager() {
             }
       }
 
-      /**
-       * Agregar un producto a la lista.
-       */
+      /****************************************
+       * Agregar un producto a la lista
+       ****************************************/
       function handleSelectProduct(product: Product) {
-            setRows((prev) => [...prev, { product }]);
+            setRows((prev) => [...prev, { product, amount: 1 }]);
             setSearchTerm('');
             setRecommendations([]);
             setSelectedIndex(-1);
       }
 
-      /**
-       * Editar fila => abre modal.
-       */
-      function handleEditRow(index: number) {
+      /****************************************
+       * Editar fila (click en el row)
+       ****************************************/
+      function handleRowClick(index: number) {
             setEditingRowIndex(index);
             setModalSearchTerm('');
             setModalRecommendations([]);
+            setEditAmount(rows[index].amount || 1);
       }
 
-      /**
-       * Reemplazar producto con uno de los equivalentes.
-       */
+      /****************************************
+       * Reemplazar producto (equivalentes)
+       ****************************************/
       function handleReplaceWithEquivalent(eqID: number) {
             if (editingRowIndex === null) return;
             setRows((prev) => {
                   const newRows = [...prev];
                   const product = ALL_PRODUCTS.find((p) => p.id === eqID);
                   if (product) {
-                        newRows[editingRowIndex] = { product };
+                        newRows[editingRowIndex] = {
+                              ...newRows[editingRowIndex],
+                              product,
+                        };
                   }
                   return newRows;
             });
       }
 
-      /**
-       * Reemplazar producto con otro buscado en el modal.
-       */
+      /****************************************
+       * Reemplazar producto (modal)
+       ****************************************/
       function handleReplaceModal(product: Product) {
             if (editingRowIndex === null) return;
             setRows((prev) => {
                   const newRows = [...prev];
-                  newRows[editingRowIndex] = { product };
+                  newRows[editingRowIndex] = {
+                        ...newRows[editingRowIndex],
+                        product,
+                  };
                   return newRows;
             });
             setModalSearchTerm('');
             setModalRecommendations([]);
       }
 
-      /**
-       * Eliminar fila.
-       */
+      /****************************************
+       * Eliminar fila
+       ****************************************/
       function handleRemoveRow(index: number) {
             setRows((prev) => prev.filter((_, i) => i !== index));
       }
 
-      /**
-       * Copiar la lista (IDs en JSON) al portapapeles.
-       */
+      /****************************************
+       * Editar fila
+       ****************************************/
+      function handleEditRow(index: number) {
+            setEditingRowIndex(index);
+            setModalSearchTerm('');
+            setModalRecommendations([]);
+      }
+
+      /****************************************
+       * Copiar lista (IDs en JSON) al portapapeles
+       ****************************************/
       function handleCopyList() {
             const toCopy = JSON.stringify(rows.map((r) => r.product.id));
             navigator.clipboard.writeText(toCopy).catch((err) => {
@@ -213,9 +238,9 @@ function Manager() {
             });
       }
 
-      /**
-       * Pegar lista (IDs en JSON) desde el portapapeles.
-       */
+      /****************************************
+       * Pegar lista (IDs en JSON) desde portapapeles
+       ****************************************/
       async function handlePasteList() {
             try {
                   const text = await navigator.clipboard.readText();
@@ -226,7 +251,7 @@ function Manager() {
                         const newRows: ProductRow[] = [];
                         parsedIDs.forEach((id) => {
                               const p = ALL_PRODUCTS.find((ap) => ap.id === id);
-                              if (p) newRows.push({ product: p });
+                              if (p) newRows.push({ product: p, amount: 1 });
                         });
                         setRows(newRows);
                   }
@@ -235,80 +260,124 @@ function Manager() {
             }
       }
 
+      /****************************************
+       * Guardar cambios de la cantidad en el modal
+       ****************************************/
+      function handleSaveModal() {
+            if (editingRowIndex === null) return;
+            setRows((prev) => {
+                  const newRows = [...prev];
+                  newRows[editingRowIndex].amount = editAmount;
+                  return newRows;
+            });
+            setEditingRowIndex(null);
+      }
+
       return (
             <div className="manager-main-container">
-                  <AdminNavbar/>
+                  <AdminNavbar />
+                  <AdminBack />
 
-                  {/* Título principal */}
                   <div className="manager-title archivo-black">Sistema de Gestión de Ventas</div>
 
-                  {/* Botones para copiar/pegar la lista */}
+                  {/* Pequeño formulario para info de la compañía (RUC y nombre) */}
+                  <div className="manager-company-info">
+                        <div className="manager-company-label">Datos del cliente</div>
+                        <div className="manager-company-field">
+                              <input
+                                    placeholder="RUC"
+                                    className="manager-company-input"
+                              />
+                        </div>
+                        <div className="manager-company-field">
+                              <input
+                                    placeholder="Razón Social"
+                                    className="manager-company-input"
+                              />
+                        </div>
+                  </div>
+
                   <div className="manager-list-actions">
-                        <button className="manager-copy-button" onClick={handleCopyList}>
+                        <div className="manager-copy-button" onClick={handleCopyList}>
                               Copiar Lista
-                        </button>
-                        <button className="manager-paste-button" onClick={handlePasteList}>
+                        </div>
+                        <div className="manager-paste-button" onClick={handlePasteList}>
                               Pegar Lista
-                        </button>
+                        </div>
                   </div>
 
-                  {/* Encabezado de tabla */}
-                  <div className="manager-table-header">
-                        <div className="manager-col col-image">Imagen</div>
-                        <div className="manager-col col-name">Nombre</div>
-                        <div className="manager-col col-part">N° de Parte</div>
-                        <div className="manager-col col-price">Precio</div>
-                        <div className="manager-col col-stock">Stock</div>
-                        <div className="manager-col col-parents">Pertenece a</div>
-                        <div className="manager-col col-actions">Acciones</div>
+                  {/* Contenedor que permite scroll horizontal en pantallas pequeñas */}
+                  <div className="manager-table-container">
+                        {/* Encabezado de tabla */}
+                        <div className="manager-table-header">
+                              <div className="manager-col col-image">Img</div>
+                              <div className="manager-col col-name">Nombre</div>
+                              <div className="manager-col col-part">Parte</div>
+                              <div className="manager-col col-price">Precio</div>
+                              <div className="manager-col col-stock">Stock</div>
+                              <div className="manager-col col-brand">Marca</div>
+                              <div className="manager-col col-parents">Pertenece</div>
+                              <div className="manager-col col-actions">Acciones</div>
+                        </div>
+
+                        {/* Filas de la tabla */}
+                        {rows.map((row, index) => {
+                              const p = row.product;
+                              const parentNames =
+                                    p.parent_products?.map((pid) => {
+                                          const parentProd = ALL_PRODUCTS.find((ap) => ap.id === pid);
+                                          return parentProd ? parentProd.name : `#${pid}`;
+                                    }) || [];
+
+                              return (
+                                    <div
+                                          key={index}
+                                          className="manager-table-row"
+                                          onClick={() => handleRowClick(index)}
+                                    >
+                                          <div className="manager-col col-image">
+                                                <img src={p.image} alt={p.name} className="row-img" />
+                                          </div>
+                                          <div className="manager-col col-name">{p.name}</div>
+                                          <div className="manager-col col-part">{p.part_number}</div>
+                                          <div className="manager-col col-price">S/.{p.price}</div>
+                                          <div className="manager-col col-stock">
+                                                {p.stock === 0 ? 'Sin stock' : p.stock}
+                                          </div>
+                                          <div className="manager-col col-brand">
+                                                {p.brand ? p.brand : '—'}
+                                          </div>
+                                          <div className="manager-col col-parents">
+                                                {parentNames.length > 0 ? parentNames.join(', ') : '—'}
+                                          </div>
+                                          <div
+                                                className="manager-col col-actions"
+                                                onClick={(e) => e.stopPropagation()}
+                                          >
+                                                <div
+                                                      className="manager-edit-btn"
+                                                      onClick={() => handleEditRow(index)}
+                                                >
+                                                      Editar
+                                                </div>
+                                                <div
+                                                      className="manager-remove-btn"
+                                                      onClick={() => handleRemoveRow(index)}
+                                                >
+                                                      Eliminar
+                                                </div>
+                                          </div>
+                                    </div>
+                              );
+                        })}
                   </div>
-
-                  {/* Filas de la tabla */}
-                  {rows.map((row, index) => {
-                        const p = row.product;
-                        const parentNames = p.parent_products?.map((pid) => {
-                              const parentProd = ALL_PRODUCTS.find((ap) => ap.id === pid);
-                              return parentProd ? parentProd.name : `#${pid}`;
-                        }) ?? [];
-
-                        return (
-                              <div key={index} className="manager-table-row">
-                                    <div className="manager-col col-image">
-                                          <img src={p.image} alt={p.name} className="row-img" />
-                                    </div>
-                                    <div className="manager-col col-name">{p.name}</div>
-                                    <div className="manager-col col-part">{p.part_number}</div>
-                                    <div className="manager-col col-price">S/.{p.price}</div>
-                                    <div className="manager-col col-stock">
-                                          {p.stock === 0 ? 'Sin stock' : p.stock}
-                                    </div>
-                                    <div className="manager-col col-parents">
-                                          {parentNames.length > 0 ? parentNames.join(', ') : '—'}
-                                    </div>
-                                    <div className="manager-col col-actions">
-                                          <button
-                                                className="manager-edit-btn"
-                                                onClick={() => handleEditRow(index)}
-                                          >
-                                                Editar
-                                          </button>
-                                          <button
-                                                className="manager-remove-btn"
-                                                onClick={() => handleRemoveRow(index)}
-                                          >
-                                                Eliminar
-                                          </button>
-                                    </div>
-                              </div>
-                        );
-                  })}
 
                   {/* Barra de búsqueda al final */}
                   <div className="manager-bottom-search">
                         <input
                               ref={searchInputRef}
                               className="manager-search-input"
-                              placeholder="Escriba el nombre del producto..."
+                              placeholder="Agregar producto..."
                               value={searchTerm}
                               onChange={(e) => setSearchTerm(e.target.value)}
                               onKeyDown={handleKeyDownMain}
@@ -318,7 +387,9 @@ function Manager() {
                                     {recommendations.map((rec, idx) => (
                                           <div
                                                 key={rec.id}
-                                                ref={(el) => (recommendationItemsRef.current[idx] = el)}
+                                                ref={(el) =>
+                                                      (recommendationItemsRef.current[idx] = el)
+                                                }
                                                 className={`manager-recommendation-item ${
                                                       idx === selectedIndex ? 'selected' : ''
                                                 }`}
@@ -326,8 +397,8 @@ function Manager() {
                                           >
                                                 <img src={rec.image} alt={rec.name} />
                                                 <div>
-                                                      <strong>{rec.name}</strong> <br />
-                                                      <small>{rec.part_number}</small>
+                                                      <div>{rec.name}</div>
+                                                      <div>{rec.part_number}</div>
                                                 </div>
                                           </div>
                                     ))}
@@ -337,21 +408,64 @@ function Manager() {
 
                   {/* MODAL de edición */}
                   {editingRowIndex !== null && (
-                        <div className="manager-modal-overlay" onClick={() => setEditingRowIndex(null)}>
-                              <div className="manager-modal-content" onClick={(e) => e.stopPropagation()}>
+                        <div
+                              className="manager-modal-overlay"
+                              onClick={() => setEditingRowIndex(null)}
+                        >
+                              <div
+                                    className="manager-modal-content"
+                                    onClick={(e) => e.stopPropagation()}
+                              >
                                     <div className="manager-modal-header">
-                                          <div className="manager-modal-title">Editar Item</div>
-                                          <button
+                                          <div className="manager-modal-title">Editar Producto</div>
+                                          <div
                                                 className="manager-modal-close"
                                                 onClick={() => setEditingRowIndex(null)}
                                           >
                                                 &times;
-                                          </button>
+                                          </div>
+                                    </div>
+
+                                    {/* Info del producto actual */}
+                                    <div className="manager-modal-section">
+                                          <div className="manager-modal-section-title">
+                                                Información del Producto
+                                          </div>
+                                          {(() => {
+                                                const currentProduct = rows[editingRowIndex].product;
+                                                return (
+                                                      <div className="manager-current-product">
+                                                            <img
+                                                                  src={currentProduct.image}
+                                                                  alt={currentProduct.name}
+                                                            />
+                                                            <div>
+                                                                  <div>{currentProduct.name}</div>
+                                                                  <div>{currentProduct.part_number}</div>
+                                                                  <div>{currentProduct.brand || 'Marca no definida'}</div>
+                                                            </div>
+                                                            <div>
+                                                                  <input
+                                                                        placeholder="Cantidad"
+                                                                        type="number"
+                                                                        value={editAmount}
+                                                                        onChange={(e) =>
+                                                                              setEditAmount(
+                                                                                    parseInt(e.target.value) || 1
+                                                                              )
+                                                                        }
+                                                                  />
+                                                            </div>
+                                                      </div>
+                                                );
+                                          })()}
                                     </div>
 
                                     {/* Equivalentes del producto actual */}
                                     <div className="manager-modal-section">
-                                          <div className="manager-modal-section-title">Productos Equivalentes</div>
+                                          <div className="manager-modal-section-title">
+                                                Productos Equivalentes
+                                          </div>
                                           {(() => {
                                                 const currentProduct = rows[editingRowIndex].product;
                                                 if (currentProduct.equivalent_products?.length) {
@@ -362,27 +476,38 @@ function Manager() {
                                                                   <div
                                                                         key={eqProd.id}
                                                                         className="manager-modal-equiv-item"
-                                                                        onClick={() => handleReplaceWithEquivalent(eqProd.id)}
+                                                                        onClick={() =>
+                                                                              handleReplaceWithEquivalent(eqProd.id)
+                                                                        }
                                                                   >
-                                                                        <img src={eqProd.image} alt={eqProd.name} />
+                                                                        <img
+                                                                              src={eqProd.image}
+                                                                              alt={eqProd.name}
+                                                                        />
                                                                         <div>
-                                                                              <strong>{eqProd.name}</strong><br />
-                                                                              <small>{eqProd.part_number}</small>
+                                                                              <div>{eqProd.name}</div>
+                                                                              <div>{eqProd.part_number}</div>
                                                                         </div>
                                                                   </div>
                                                             );
                                                       });
                                                 }
-                                                return <div>No se encontraron equivalentes.</div>;
+                                                return (
+                                                      <div className="manager-no-equivalents">
+                                                            No se encontraron equivalentes.
+                                                      </div>
+                                                );
                                           })()}
                                     </div>
 
                                     {/* Buscar otro producto */}
                                     <div className="manager-modal-section">
-                                          <div className="manager-modal-section-title">Buscar otro producto</div>
+                                          <div className="manager-modal-section-title">
+                                                Buscar Otro Producto
+                                          </div>
                                           <input
                                                 className="manager-modal-search"
-                                                placeholder="Escriba el nombre del producto..."
+                                                placeholder="Escriba el nombre..."
                                                 value={modalSearchTerm}
                                                 onChange={(e) => setModalSearchTerm(e.target.value)}
                                           />
@@ -395,12 +520,17 @@ function Manager() {
                                                       >
                                                             <img src={mp.image} alt={mp.name} />
                                                             <div>
-                                                                  <strong>{mp.name}</strong><br />
-                                                                  <small>{mp.part_number}</small>
+                                                                  <div>{mp.name}</div>
+                                                                  <div>{mp.part_number}</div>
                                                             </div>
                                                       </div>
                                                 ))}
                                           </div>
+                                    </div>
+
+                                    {/* Botón para guardar cambios (cantidad, etc.) */}
+                                    <div className="manager-modal-save" onClick={handleSaveModal}>
+                                          Guardar
                                     </div>
                               </div>
                         </div>

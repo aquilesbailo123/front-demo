@@ -1,3 +1,9 @@
+/* Manager.css */
+
+/* Usa variables globales (ejemplo):
+   --primary-color, --secondary-color, --background-color, --light-color, etc.
+*/
+
 /***************
   Estructura General
 ***************/
@@ -7,20 +13,50 @@
       align-items: center;
       width: 100%;
       min-height: 100vh;
-      background: #f0f4f8;
+      background: var(--background-color);
       font-family: 'Arial', sans-serif;
 }
-
 
 /***************
   Título Principal
 ***************/
 .manager-title {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       margin: 1.5rem 0;
-      color: #075985;
+      color: var(--primary-color);
       font-weight: bold;
       text-align: center;
+}
+
+/***************
+  Formulario de Compañía (RUC, Razón Social)
+***************/
+.manager-company-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      width: 90%;
+      max-width: 1200px;
+      margin-bottom: 1rem;
+      justify-content: flex-start;
+}
+.manager-company-label {
+      font-size: 1rem;
+}
+.manager-company-field {
+      flex: 1;
+}
+.manager-company-input {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      outline: none;
+      background: var(--light-color);
+      color: #333;
 }
 
 /***************
@@ -31,11 +67,9 @@
       gap: 1rem;
       margin-bottom: 1rem;
 }
-
 .manager-copy-button,
 .manager-paste-button {
-      background: #0ea5e9;
-      border: none;
+      background: var(--primary-color);
       color: #fff;
       font-weight: 600;
       font-size: 0.9rem;
@@ -43,19 +77,35 @@
       border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.2s, transform 0.2s;
+      border: none;
 }
 .manager-copy-button:hover,
 .manager-paste-button:hover {
-      background: #0a8baf;
+      background: var(--secondary-color);
       transform: translateY(-2px);
 }
 
 /***************
-  Tabla - Encabezado
+  Contenedor de la Tabla
 ***************/
-.manager-table-header {
+.manager-table-container {
       width: 90%;
       max-width: 1200px;
+      margin-bottom: 1rem;
+      overflow-x: auto; /* Para scroll horizontal cuando sea necesario */
+}
+.manager-table-container::-webkit-scrollbar {
+      height: 6px;
+}
+.manager-table-container::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 3px;
+}
+
+/***************
+  Encabezado de la Tabla
+***************/
+.manager-table-header {
       display: flex;
       background: #333;
       color: #fff;
@@ -63,23 +113,34 @@
       padding: 0.5rem;
       font-weight: bold;
       font-size: 0.9rem;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      min-width: 800px; /* Para que se muestre scroll en pantallas pequeñas */
 }
 .manager-col {
       flex: 1;
       padding: 0 0.5rem;
       text-align: left;
+      white-space: nowrap;
 }
 .col-image {
       max-width: 80px;
 }
+/* .col-name,
+.col-part,
+.col-price,
+.col-stock,
+.col-brand,
+.col-parents,
+.col-actions {
+} */
+
+.col-actions {
+      flex-direction: row;
+}
 
 /***************
-  Tabla - Filas
+  Filas de la Tabla
 ***************/
 .manager-table-row {
-      width: 90%;
-      max-width: 1200px;
       display: flex;
       background: #fff;
       margin-top: 0.5rem;
@@ -88,9 +149,11 @@
       overflow: hidden;
       align-items: center;
       transition: background-color 0.2s;
+      min-width: 800px; /* Igual que el header para scroll */
+      cursor: pointer;
 }
 .manager-table-row:hover {
-      background-color: #f9fafb;
+      background-color: var(--light-color);
 }
 
 .row-img {
@@ -108,32 +171,23 @@
 .manager-remove-btn {
       margin: 0 4px;
       padding: 0.3rem 0.6rem;
-      border: none;
       border-radius: 4px;
       cursor: pointer;
       font-weight: 600;
       font-size: 0.85rem;
       transition: background-color 0.2s;
-}
-
-.manager-edit-btn {
-      background-color: #2196f3;
+      background-color: var(--primary-color);
       color: #fff;
+      border: none;
+      text-align: center;
 }
-.manager-edit-btn:hover {
-      background-color: #0b7dda;
-}
-
-.manager-remove-btn {
-      background-color: #f44336;
-      color: #fff;
-}
+.manager-edit-btn:hover,
 .manager-remove-btn:hover {
-      background-color: #d32f2f;
+      background-color: var(--secondary-color);
 }
 
 /***************
-  Barra de búsqueda al final
+  Barra de Búsqueda (Abajo)
 ***************/
 .manager-bottom-search {
       position: relative;
@@ -153,20 +207,20 @@
       width: 100%;
       border: none;
       outline: none;
-      font-size: 1.2rem;       /* Más grande */
-      padding: 0.6rem;        /* Aumentar padding */
+      font-size: 1rem;
+      padding: 0.6rem;
       color: #333;
       background: transparent;
 }
 
 /***************
-  Recuadro de recomendaciones
+  Recomendaciones
 ***************/
 .manager-recommendations-box {
       position: absolute;
-      top: calc(100% + 5px);  /* Para que aparezca debajo del input */
+      top: calc(100% + 5px);
       left: 0;
-      width: 100%;           /* Ocupa todo el ancho del contenedor padre */
+      width: 100%;
       max-height: 250px;
       overflow-y: auto;
       background: #fefefe;
@@ -177,9 +231,15 @@
       flex-direction: column;
       gap: 0.5rem;
       padding: 0.5rem;
-      z-index: 999; /* Asegurarnos que se muestre por encima */
+      z-index: 999;
 }
-
+.manager-recommendations-box::-webkit-scrollbar {
+      width: 6px;
+}
+.manager-recommendations-box::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.1);
+      border-radius: 3px;
+}
 .manager-recommendation-item {
       display: flex;
       gap: 0.5rem;
@@ -188,11 +248,9 @@
       padding-bottom: 0.3rem;
       transition: background-color 0.2s;
 }
-
 .manager-recommendation-item:hover {
-      background: #f9f9f9;
+      background: var(--light-color);
 }
-
 .manager-recommendation-item img {
       width: 40px;
       height: 40px;
@@ -200,8 +258,6 @@
       border-radius: 4px;
       border: 1px solid #ccc;
 }
-
-/* Resaltar el ítem actualmente seleccionado con flechas */
 .manager-recommendation-item.selected {
       background: #e2e8f0;
 }
@@ -216,7 +272,7 @@
       width: 100vw;
       height: 100vh;
       background: rgba(0,0,0,0.6);
-      z-index: 9999; /* encima del desplegable */
+      z-index: 9999;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -239,7 +295,6 @@
       overflow-y: auto;
       box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-
 .manager-modal-header {
       display: flex;
       justify-content: space-between;
@@ -248,7 +303,7 @@
 .manager-modal-title {
       font-size: 1.2rem;
       font-weight: bold;
-      color: #075985;
+      color: var(--primary-color);
 }
 .manager-modal-close {
       background: none;
@@ -257,8 +312,11 @@
       cursor: pointer;
 }
 
+/***************
+  Sección del Modal
+***************/
 .manager-modal-section {
-      background: #f8f8f8;
+      background: var(--light-color);
       padding: 1rem;
       border-radius: 6px;
 }
@@ -266,11 +324,38 @@
       font-size: 1rem;
       font-weight: bold;
       margin-bottom: 0.5rem;
-      color: #075985;
+      color: var(--primary-color);
 }
 
 /***************
-  Ítems Equivalentes en Modal
+  Producto Actual
+***************/
+.manager-current-product {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      background: #fff;
+      padding: 0.5rem;
+      border-radius: 4px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+      margin-bottom: 0.5rem;
+}
+.manager-current-product img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+}
+.manager-current-product input {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0.3rem;
+      width: 80px;
+      font-size: 0.9rem;
+}
+
+/***************
+  Ítems Equivalentes y Recomendaciones en Modal
 ***************/
 .manager-modal-equiv-item,
 .manager-modal-recommendation-item {
@@ -295,27 +380,48 @@
       object-fit: cover;
       border-radius: 4px;
 }
+.manager-no-equivalents {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+}
+
+/***************
+  Botón de Guardar en el Modal
+***************/
+.manager-modal-save {
+      align-self: flex-end;
+      background: var(--primary-color);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: -0.5rem;
+}
+.manager-modal-save:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+}
 
 /***************
   Responsivo
 ***************/
 @media (max-width: 768px) {
-      .manager-table-header, 
+      .manager-table-header,
       .manager-table-row {
+            font-size: 0.8rem;
+      }
+
+      /* Ajustes al formulario de compañía */
+      .manager-company-info {
             flex-direction: column;
+            align-items: flex-start;
       }
-      .manager-col {
-            margin: 4px 0;
-      }
-
-      .manager-bottom-search {
-            width: 90%;
-            margin: 1rem auto;
-      }
-
-      .manager-recommendations-box {
-            position: static;
-            margin-top: 0.5rem;
+      .manager-company-field {
             width: 100%;
       }
 }

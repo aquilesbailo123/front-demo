@@ -1,0 +1,38 @@
+/* Admin.css */
+
+/* Contenedor para ubicar el botón en la parte superior, alineado a la izquierda */
+.back-to-panel-container {
+      display: flex;
+      justify-content: flex-start;
+      width: 90%;
+      max-width: 1400px;
+      margin: 1rem auto; /* Centra horizontalmente el contenedor y deja espacio arriba/abajo */
+}
+
+/* Botón "Volver al panel" */
+.back-to-panel-button {
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: #ffffff;
+      border-radius: 5px;
+      color: #333;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.back-to-panel-button:hover {
+      background: #f7f7f7;
+      color: #111;
+      border-color: #bbb;
+}
+
+/* Ícono de flecha */
+.arrow-icon {
+      font-size: 0.6rem;
+}

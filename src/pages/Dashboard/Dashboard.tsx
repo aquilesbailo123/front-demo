@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import './Dashboard.css';
 import { Product, ALL_PRODUCTS } from '../../assets/products';
 import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
+import AdminBack from '../../components/admin/AdminBack/AdminBack';
 import {
       LineChart,
       Line,
@@ -113,6 +114,7 @@ function Dashboard() {
       return (
             <div className="dashboard-main-container">
                   <AdminNavbar/>
+                  <AdminBack/>
 
                   {/* Título Principal */}
                   <div className="dashboard-title archivo-black">Dashboard de Ventas y Operaciones</div>
