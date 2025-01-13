@@ -1,14 +1,16 @@
 // Manager.tsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import { ALL_PRODUCTS, Product } from '../../assets/products';
 import AdminNavbar from '../../components/admin/AdminNavbar/AdminNavbar';
 import AdminBack from '../../components/admin/AdminBack/AdminBack';
+import { FaEdit, FaTrash } from 'react-icons/fa'; // <-- Import React Icons
 import './Manager.css';
 
 // Estructura de cada fila en la lista de productos
 interface ProductRow {
       product: Product;
-      amount?: number; // Para la cantidad solicitada
+      amount: number; // Para la cantidad solicitada
 }
 
 function Manager() {
@@ -168,13 +170,25 @@ function Manager() {
       }
 
       /****************************************
-       * Editar fila (click en el row)
+       * Click en el row => Abrir modal
        ****************************************/
       function handleRowClick(index: number) {
             setEditingRowIndex(index);
             setModalSearchTerm('');
             setModalRecommendations([]);
-            setEditAmount(rows[index].amount || 1);
+            setEditAmount(rows[index].amount);
+      }
+
+      /****************************************
+       * Cambiar cantidad en la fila (input)
+       ****************************************/
+      function handleRowAmountChange(e: React.ChangeEvent<HTMLInputElement>, index: number) {
+            const newValue = parseInt(e.target.value);
+            setRows((prev) => {
+                  const newRows = [...prev];
+                  newRows[index].amount = newValue;
+                  return newRows;
+            });
       }
 
       /****************************************
@@ -217,15 +231,6 @@ function Manager() {
        ****************************************/
       function handleRemoveRow(index: number) {
             setRows((prev) => prev.filter((_, i) => i !== index));
-      }
-
-      /****************************************
-       * Editar fila
-       ****************************************/
-      function handleEditRow(index: number) {
-            setEditingRowIndex(index);
-            setModalSearchTerm('');
-            setModalRecommendations([]);
       }
 
       /****************************************
@@ -273,6 +278,15 @@ function Manager() {
             setEditingRowIndex(null);
       }
 
+      /****************************************
+       * Guardar "orden" (falso submit)
+       ****************************************/
+      function handleSaveOrder() {
+            // Solo un placeholder, no hace nada
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            () => {};
+      }
+
       return (
             <div className="manager-main-container">
                   <AdminNavbar />
@@ -316,6 +330,7 @@ function Manager() {
                               <div className="manager-col col-price">Precio</div>
                               <div className="manager-col col-stock">Stock</div>
                               <div className="manager-col col-brand">Marca</div>
+                              <div className="manager-col col-amount">Cantidad</div>
                               <div className="manager-col col-parents">Pertenece</div>
                               <div className="manager-col col-actions">Acciones</div>
                         </div>
@@ -347,24 +362,33 @@ function Manager() {
                                           <div className="manager-col col-brand">
                                                 {p.brand ? p.brand : '—'}
                                           </div>
+                                          {/* Cantidad en la fila */}
+                                          <div className="manager-col col-amount" onClick={(e) => e.stopPropagation()}>
+                                                <input
+                                                      className="manager-row-amount-input"
+                                                      type="number"
+                                                      value={row.amount}
+                                                      onChange={(e) => handleRowAmountChange(e, index)}
+                                                />
+                                          </div>
                                           <div className="manager-col col-parents">
                                                 {parentNames.length > 0 ? parentNames.join(', ') : '—'}
                                           </div>
                                           <div
                                                 className="manager-col col-actions"
-                                                onClick={(e) => e.stopPropagation()}
+                                                onClick={(e) => e.stopPropagation()} // Evita abrir el modal
                                           >
                                                 <div
                                                       className="manager-edit-btn"
-                                                      onClick={() => handleEditRow(index)}
+                                                      onClick={() => setEditingRowIndex(index)}
                                                 >
-                                                      Editar
+                                                      <FaEdit />
                                                 </div>
                                                 <div
                                                       className="manager-remove-btn"
                                                       onClick={() => handleRemoveRow(index)}
                                                 >
-                                                      Eliminar
+                                                      <FaTrash />
                                                 </div>
                                           </div>
                                     </div>
@@ -404,6 +428,11 @@ function Manager() {
                                     ))}
                               </div>
                         )}
+                  </div>
+
+                  {/* Botón "Guardar Orden" (falso submit) */}
+                  <div className="manager-save-order" onClick={handleSaveOrder}>
+                        Guardar Orden
                   </div>
 
                   {/* MODAL de edición */}

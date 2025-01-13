@@ -4,9 +4,9 @@
    --primary-color, --secondary-color, --background-color, --light-color, etc.
 */
 
-/***************
-  Estructura General
-***************/
+/********************************************
+  ESTRUCTURA GENERAL
+*********************************************/
 .manager-main-container {
       display: flex;
       flex-direction: column;
@@ -17,9 +17,9 @@
       font-family: 'Arial', sans-serif;
 }
 
-/***************
-  Título Principal
-***************/
+/********************************************
+  TÍTULO PRINCIPAL
+*********************************************/
 .manager-title {
       font-size: 1.6rem;
       margin: 1.5rem 0;
@@ -28,9 +28,9 @@
       text-align: center;
 }
 
-/***************
-  Formulario de Compañía (RUC, Razón Social)
-***************/
+/********************************************
+  FORMULARIO DE COMPAÑÍA (RUC, Razón Social)
+*********************************************/
 .manager-company-info {
       display: flex;
       gap: 10px;
@@ -59,9 +59,9 @@
       color: #333;
 }
 
-/***************
-  Acciones (Copiar / Pegar)
-***************/
+/********************************************
+  LIST-ACTIONS (COPIAR / PEGAR)
+*********************************************/
 .manager-list-actions {
       display: flex;
       gap: 1rem;
@@ -85,14 +85,14 @@
       transform: translateY(-2px);
 }
 
-/***************
-  Contenedor de la Tabla
-***************/
+/********************************************
+  CONTENEDOR DE LA TABLA
+*********************************************/
 .manager-table-container {
       width: 90%;
       max-width: 1200px;
       margin-bottom: 1rem;
-      overflow-x: auto; /* Para scroll horizontal cuando sea necesario */
+      overflow-x: auto; /* Para scroll horizontal en pantallas pequeñas */
 }
 .manager-table-container::-webkit-scrollbar {
       height: 6px;
@@ -102,9 +102,9 @@
       border-radius: 3px;
 }
 
-/***************
-  Encabezado de la Tabla
-***************/
+/********************************************
+  ENCABEZADO DE LA TABLA (FAUX TABLE)
+*********************************************/
 .manager-table-header {
       display: flex;
       background: #333;
@@ -113,7 +113,7 @@
       padding: 0.5rem;
       font-weight: bold;
       font-size: 0.9rem;
-      min-width: 800px; /* Para que se muestre scroll en pantallas pequeñas */
+      min-width: 900px; /* Para forzar scroll si es muy pequeña la pantalla */
 }
 .manager-col {
       flex: 1;
@@ -124,22 +124,18 @@
 .col-image {
       max-width: 80px;
 }
-/* .col-name,
-.col-part,
-.col-price,
-.col-stock,
-.col-brand,
-.col-parents,
+.col-amount {
+      max-width: 90px;
+}
 .col-actions {
-} */
-
-.col-actions {
+      display: flex;
       flex-direction: row;
+      gap: 4px;
 }
 
-/***************
-  Filas de la Tabla
-***************/
+/********************************************
+  FILAS DE LA TABLA
+*********************************************/
 .manager-table-row {
       display: flex;
       background: #fff;
@@ -149,13 +145,16 @@
       overflow: hidden;
       align-items: center;
       transition: background-color 0.2s;
-      min-width: 800px; /* Igual que el header para scroll */
+      min-width: 900px; /* Igual que el header */
       cursor: pointer;
 }
 .manager-table-row:hover {
       background-color: var(--light-color);
 }
 
+/********************************************
+  IMAGEN DE LA FILA
+*********************************************/
 .row-img {
       width: 60px;
       height: 60px;
@@ -164,31 +163,43 @@
       border: 1px solid #ccc;
 }
 
-/***************
-  Botones (Editar/Eliminar)
-***************/
+/********************************************
+  CANTIDAD EN LA FILA
+*********************************************/
+.manager-row-amount-input {
+      width: 60px;
+      padding: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      outline: none;
+}
+
+/********************************************
+  BOTONES (EDITAR/ELIMINAR) - REACT ICONS
+*********************************************/
 .manager-edit-btn,
 .manager-remove-btn {
-      margin: 0 4px;
-      padding: 0.3rem 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
       border-radius: 4px;
       cursor: pointer;
-      font-weight: 600;
-      font-size: 0.85rem;
+      font-size: 1rem;
       transition: background-color 0.2s;
       background-color: var(--primary-color);
       color: #fff;
-      border: none;
-      text-align: center;
 }
 .manager-edit-btn:hover,
 .manager-remove-btn:hover {
       background-color: var(--secondary-color);
 }
 
-/***************
-  Barra de Búsqueda (Abajo)
-***************/
+/********************************************
+  BARRA DE BÚSQUEDA (ABAJO)
+*********************************************/
 .manager-bottom-search {
       position: relative;
       width: 90%;
@@ -202,7 +213,6 @@
       display: flex;
       flex-direction: column;
 }
-
 .manager-search-input {
       width: 100%;
       border: none;
@@ -213,9 +223,9 @@
       background: transparent;
 }
 
-/***************
-  Recomendaciones
-***************/
+/********************************************
+  RECOMENDACIONES (DESPLEGABLE)
+*********************************************/
 .manager-recommendations-box {
       position: absolute;
       top: calc(100% + 5px);
@@ -262,9 +272,30 @@
       background: #e2e8f0;
 }
 
-/***************
-  Modal Overlay
-***************/
+/********************************************
+  BOTÓN PARA "GUARDAR ORDEN"
+*********************************************/
+.manager-save-order {
+      margin: 1rem;
+      background: var(--primary-color);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, transform 0.2s;
+      user-select: none;
+}
+.manager-save-order:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+}
+
+/********************************************
+  MODAL OVERLAY
+*********************************************/
 .manager-modal-overlay {
       position: fixed;
       top: 0;
@@ -278,9 +309,9 @@
       justify-content: center;
 }
 
-/***************
-  Modal Content
-***************/
+/********************************************
+  MODAL CONTENT
+*********************************************/
 .manager-modal-content {
       background: #fff;
       width: 90%;
@@ -310,11 +341,12 @@
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
+      user-select: none;
 }
 
-/***************
-  Sección del Modal
-***************/
+/********************************************
+  SECCIONES DEL MODAL
+*********************************************/
 .manager-modal-section {
       background: var(--light-color);
       padding: 1rem;
@@ -327,9 +359,9 @@
       color: var(--primary-color);
 }
 
-/***************
-  Producto Actual
-***************/
+/********************************************
+  PRODUCTO ACTUAL (EN MODAL)
+*********************************************/
 .manager-current-product {
       display: flex;
       gap: 1rem;
@@ -352,11 +384,12 @@
       padding: 0.3rem;
       width: 80px;
       font-size: 0.9rem;
+      outline: none;
 }
 
-/***************
-  Ítems Equivalentes y Recomendaciones en Modal
-***************/
+/********************************************
+  ÍTEMS EQUIVALENTES & RECOMENDACIONES (MODAL)
+*********************************************/
 .manager-modal-equiv-item,
 .manager-modal-recommendation-item {
       display: flex;
@@ -386,9 +419,9 @@
       margin-bottom: 0.5rem;
 }
 
-/***************
-  Botón de Guardar en el Modal
-***************/
+/********************************************
+  BOTÓN DE GUARDAR (MODAL)
+*********************************************/
 .manager-modal-save {
       align-self: flex-end;
       background: var(--primary-color);
@@ -407,13 +440,20 @@
       transform: translateY(-2px);
 }
 
-/***************
-  Responsivo
-***************/
+/********************************************
+  RESPONSIVO
+*********************************************/
 @media (max-width: 768px) {
       .manager-table-header,
       .manager-table-row {
             font-size: 0.8rem;
+      }
+
+      .manager-table-header {
+            min-width: 700px;
+      }
+      .manager-table-row {
+            min-width: 700px;
       }
 
       /* Ajustes al formulario de compañía */
