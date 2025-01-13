@@ -1,0 +1,170 @@
+/* Notifications.css */
+
+/* Usa tus variables globales:
+   --primary-color, --secondary-color, --background-color, --light-color, etc.
+*/
+
+/********************************************
+  CONTENEDOR PRINCIPAL
+*********************************************/
+.notifications-main-container {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--background-color);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      padding-bottom: 2rem;
+}
+
+/********************************************
+  TÍTULOS
+*********************************************/
+.notifications-title {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      font-size: 1.8rem;
+      text-align: center;
+      color: var(--primary-color);
+}
+.notifications-subtitle {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      text-align: center;
+      color: #444;
+      margin-bottom: 2rem;
+      max-width: 700px;
+      line-height: 1.4;
+}
+
+/********************************************
+  LISTA DE NOTIFICACIONES
+*********************************************/
+.notifications-list-container {
+      width: 90%;
+      max-width: 1100px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+}
+
+/********************************************
+  ITEM DE NOTIFICACIÓN
+*********************************************/
+.notification-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+      transition: background-color 0.2s;
+}
+
+.notification-item.unread {
+      border-left: 4px solid var(--primary-color);
+}
+.notification-item.read {
+      border-left: 4px solid transparent;
+}
+
+/********************************************
+  PARTE IZQUIERDA (ÍCONO + TEXTO)
+*********************************************/
+.notification-left {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      align-items: flex-start;
+}
+.notification-icon {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      flex-shrink: 0;
+}
+.notification-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+}
+.notification-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #333;
+}
+.notification-description {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.4;
+}
+
+/********************************************
+  PARTE DERECHA (FECHA + ACCIONES)
+*********************************************/
+.notification-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+}
+.notification-datetime {
+      font-size: 0.8rem;
+      color: #666;
+      white-space: nowrap; /* Evita que se quiebre la fecha */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px; /* Ajusta este ancho según tu diseño */
+}
+
+/********************************************
+  BOTONES DE ACCIÓN
+*********************************************/
+.notification-actions {
+      display: flex;
+      gap: 0.5rem;
+}
+.notification-button {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+      user-select: none;
+      white-space: nowrap; /* Evita que se corte el texto */
+}
+.mark-read-btn {
+      background-color: var(--primary-color);
+}
+.mark-read-btn:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+}
+.dismiss-btn {
+      background-color: #d32f2f;
+}
+.dismiss-btn:hover {
+      background-color: #b71c1c;
+      transform: translateY(-2px);
+}
+
+/********************************************
+  RESPONSIVO
+*********************************************/
+@media (max-width: 768px) {
+      .notification-item {
+            flex-direction: column;
+            align-items: stretch;
+      }
+      .notification-right {
+            align-items: flex-start;
+      }
+      .notification-datetime {
+            max-width: 100%;
+      }
+}
